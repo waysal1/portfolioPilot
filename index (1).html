@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alex Rivera — Full-Stack Developer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+:root { --a:#e8ff47; --a2:#ff6b35; --a3:#60a5fa; }
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; }
+h1,h2,h3,h4,.syne { font-family:'Syne',sans-serif; }
+
+/* ── Grain ── */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  opacity:.3;
+}
+
+/* ── Keyframes ── */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes blobPulse{ 0%,100%{border-radius:60% 40% 70% 30%/50% 60% 40% 50%;transform:scale(1)} 50%{border-radius:40% 60% 30% 70%/60% 40% 60% 40%;transform:scale(1.04)} }
+@keyframes marquee  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes popIn    { 0%{transform:scale(.8);opacity:0} 70%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }
+
+.afu { animation:fadeUp .65s ease both; }
+.afi { animation:fadeIn .9s ease both; }
+.d1{animation-delay:.1s} .d2{animation-delay:.2s} .d3{animation-delay:.3s}
+.d4{animation-delay:.4s} .d5{animation-delay:.5s} .d6{animation-delay:.6s}
+
+.blob { animation:blobPulse 7s ease-in-out infinite; }
+.marquee-inner { animation:marquee 20s linear infinite; }
+
+/* ── Reveal on scroll ── */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
+.reveal.vis { opacity:1; transform:none; }
+
+/* ── Accent tag ── */
+.tag {
+  display:inline-block; padding:3px 14px; border-radius:999px;
+  background:var(--a); color:#0a0a0a;
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+}
+
+/* ── Buttons ── */
+.btn {
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'Syne',sans-serif; font-weight:700; letter-spacing:.05em;
+  padding:11px 26px; border-radius:999px; cursor:pointer;
+  text-decoration:none; border:none; font-size:.9rem;
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease;
+}
+.btn-y { background:var(--a); color:#0a0a0a; }
+.btn-y:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 28px rgba(232,255,71,.3); }
+.btn-o { background:transparent; border:2px solid currentColor; }
+.btn-o:hover { background:var(--a); color:#0a0a0a; border-color:var(--a); transform:translateY(-2px); }
+.btn-sm { padding:7px 18px; font-size:.78rem; }
+
+/* ── Nav ── */
+.nav-link { position:relative; text-decoration:none; }
+.nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:2px; background:var(--a); transition:width .3s ease; }
+.nav-link:hover::after { width:100%; }
+
+/* ── Toggle ── */
+.tog { width:44px;height:22px;border-radius:999px;background:#333;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0; }
+.tog::before { content:''; position:absolute; top:3px;left:3px; width:16px;height:16px;border-radius:50%;background:var(--a);transition:transform .3s cubic-bezier(.34,1.56,.64,1); }
+.tog.lt { background:#d1d5db; }
+.tog.lt::before { transform:translateX(22px); background:#0a0a0a; }
+
+/* ── Cards ── */
+.pcard { transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease; }
+.pcard:hover { transform:translateY(-9px) rotate(-0.4deg); box-shadow:0 20px 50px rgba(0,0,0,.22); }
+
+/* ── Skill bar ── */
+.sbar { height:3px; border-radius:99px; background:var(--a); transition:width 1.3s cubic-bezier(.4,0,.2,1); }
+
+/* ── Form fields ── */
+.field {
+  width:100%; background:transparent; border:none;
+  border-bottom:2px solid; outline:none; padding:10px 2px;
+  font-family:'DM Sans',sans-serif; font-size:1rem;
+  transition:border-color .3s;
+}
+.err-msg { font-size:.78rem; margin-top:4px; color:#f87171; }
+
+/* ── Toast ── */
+.toast { animation:popIn .4s ease both; }
+
+/* ── Modal ── */
+.modal-bg { position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px; }
+.modal-box { max-width:780px;width:100%;max-height:88vh;overflow-y:auto;border-radius:20px; animation:popIn .35s ease both; }
+
+::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-thumb{background:var(--a);border-radius:99px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+/* ════════════════════════════════
+   DATA
+════════════════════════════════ */
+const PROJECTS = [
+  {
+    id:1, icon:'⚡', color:'#e8ff47',
+    title:'NeuralDash',
+    tag:'AI · SaaS Dashboard',
+    year:'2024',
+    desc:'Real-time ML analytics platform for monitoring model drift, data quality, and pipeline health across distributed ML systems. Serves 200+ data science teams.',
+    longDesc:'NeuralDash is a production-grade SaaS platform that I architected and built solo over 6 months. It ingests model telemetry via a WebSocket pipeline, runs statistical drift detection in a Python worker, and surfaces insights through a React dashboard backed by a PostgreSQL time-series store. The system handles ~2M events/day with <200ms p99 latency.',
+    tech:['React','TypeScript','FastAPI','PostgreSQL','WebSockets','AWS ECS'],
+    github:'https://github.com',
+    live:'https://vercel.app',
+    metrics:'2M+ events/day · 200ms p99 · 200 teams',
+  },
+  {
+    id:2, icon:'🛍️', color:'#ff6b35',
+    title:'Arcadia Shop',
+    tag:'E-commerce · Next.js',
+    year:'2024',
+    desc:'Full-stack e-commerce platform with 3D product previews using Three.js, AI-powered size recommendations, and a headless Shopify backend.',
+    longDesc:'Arcadia reimagines online shopping with immersive 3D product rendering via Three.js/WebGL, a recommendation engine built with collaborative filtering, and a blazing-fast storefront powered by Next.js ISR + Shopify Storefront API. Achieved a 38% increase in conversion rate for the client vs. their previous Shopify theme.',
+    tech:['Next.js','Three.js','TypeScript','Shopify API','Tailwind','Vercel'],
+    github:'https://github.com',
+    live:'https://vercel.app',
+    metrics:'+38% conversion · <1.2s LCP · 99 Lighthouse',
+  },
+  {
+    id:3, icon:'💓', color:'#a78bfa',
+    title:'Pulse Health',
+    tag:'Mobile · React Native',
+    year:'2023',
+    desc:'Cross-platform health tracking app that aggregates wearable data from Apple Health & Fitbit, applies ML to surface personalized recovery and sleep insights.',
+    longDesc:'Pulse is a React Native app with a Node.js/Express backend that normalises data across Apple HealthKit, Google Fit, and Fitbit APIs. A lightweight LSTM model runs inference on a serverless Lambda to generate weekly wellness scores. The app has 4,200+ downloads on the App Store with a 4.7-star rating.',
+    tech:['React Native','Expo','Node.js','AWS Lambda','Python','TensorFlow.js'],
+    github:'https://github.com',
+    live:'https://apps.apple.com',
+    metrics:'4,200+ downloads · 4.7★ App Store',
+  },
+  {
+    id:4, icon:'🤖', color:'#34d399',
+    title:'Codex CLI',
+    tag:'Dev Tool · Node.js · OSS',
+    year:'2023',
+    desc:'Open-source AI-powered CLI that scaffolds React/Next.js components, generates test suites from JSDoc comments, and automates commit message writing.',
+    longDesc:'Codex CLI is my most popular open-source project with 1.4k GitHub stars. It wraps the OpenAI API in an ergonomic command-line interface, letting developers scaffold full CRUD feature slices, generate Vitest/Jest test files, and craft Conventional Commit messages—all from a single npx command. Built with TypeScript, Commander.js, and Ink.',
+    tech:['Node.js','TypeScript','OpenAI API','Commander.js','Ink','npm'],
+    github:'https://github.com',
+    live:null,
+    metrics:'1.4k GitHub stars · 850 weekly downloads',
+  },
+];
+
+const SKILLS = [
+  { name:'React / Next.js',  pct:93 },
+  { name:'TypeScript',       pct:88 },
+  { name:'Node.js / Express',pct:82 },
+  { name:'Tailwind CSS',     pct:96 },
+  { name:'Python / FastAPI', pct:74 },
+  { name:'PostgreSQL',       pct:79 },
+  { name:'AWS / Docker',     pct:71 },
+  { name:'React Native',     pct:76 },
+];
+
+const TOOLS = ['Figma','VS Code','Docker','AWS','Vercel','GitHub','Postman','Linear','Notion','Turborepo'];
+const MARQUEE = ['React','TypeScript','Next.js','Tailwind CSS','Node.js','Python','PostgreSQL','GraphQL','AWS','Docker','React Native','Figma','Vite','Vitest'];
+
+const EXPERIENCE = [
+  { role:'Senior Frontend Engineer', company:'Veritas AI', period:'Jan 2023 – Present', desc:'Lead UI architecture for a YC-backed ML ops platform. Built the real-time inference monitoring dashboard used by 150+ enterprise clients.' },
+  { role:'Full-Stack Developer', company:'Freelance', period:'Jun 2021 – Dec 2022', desc:'Delivered 20+ client projects: SaaS dashboards, e-commerce stores, and internal tools. Stack ranged from Next.js to Django REST.' },
+  { role:'Frontend Intern', company:'Pixel Labs', period:'Jan 2021 – May 2021', desc:'Shipped new onboarding flow that reduced time-to-activation by 22%. Built using React, Framer Motion, and Storybook.' },
+];
+
+/* ════════════════════════════════
+   HOOKS
+════════════════════════════════ */
+function useReveal(delay = 0) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setTimeout(() => el.classList.add('vis'), delay);
+        obs.disconnect();
+      }
+    }, { threshold: 0.12 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [delay]);
+  return ref;
+}
+
+function useScrolled() {
+  const [s, setS] = useState(false);
+  useEffect(() => {
+    const fn = () => setS(window.scrollY > 48);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+  return s;
+}
+
+/* ════════════════════════════════
+   NAVBAR
+════════════════════════════════ */
+function Navbar({ dark, setDark }) {
+  const scrolled = useScrolled();
+  const [open, setOpen] = useState(false);
+
+  const bg = dark
+    ? scrolled ? 'bg-[#0a0a0a]/88 backdrop-blur-xl border-b border-white/6' : ''
+    : scrolled ? 'bg-white/88 backdrop-blur-xl border-b border-black/6' : '';
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const links = ['Home','About','Projects','Skills','Contact'];
+
+  return (
+    <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${bg}`}>
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#home" className={`syne font-extrabold text-[1.15rem] tracking-tight no-underline ${tc}`}>
+          alex.<span style={{color:'var(--a)'}}>dev</span>
+        </a>
+
+        <ul className={`hidden md:flex gap-8 text-sm font-medium ${tc} list-none`}>
+          {links.map(l => <li key={l}><a href={`#${l.toLowerCase()}`} className={`nav-link ${tc}`}>{l}</a></li>)}
+        </ul>
+
+        <div className="flex items-center gap-3">
+          <div className={`tog ${dark?'':'lt'}`} onClick={() => setDark(d=>!d)} title="Toggle theme" />
+          <button className={`md:hidden ${tc} text-xl leading-none bg-transparent border-0 cursor-pointer`} onClick={() => setOpen(o=>!o)}>
+            {open ? '✕' : '☰'}
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div className={`md:hidden flex flex-col gap-4 px-6 pb-5 text-sm font-medium ${dark?'bg-[#0f0f0f] text-white':'bg-white text-[#0a0a0a]'}`}>
+          {links.map(l => <a key={l} href={`#${l.toLowerCase()}`} className={`nav-link ${dark?'text-white':'text-[#0a0a0a]'}`} onClick={()=>setOpen(false)}>{l}</a>)}
+        </div>
+      )}
+    </nav>
+  );
+}
+
+/* ════════════════════════════════
+   HERO
+════════════════════════════════ */
+function Hero({ dark }) {
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/55' : 'text-black/50';
+  const bg = dark ? 'bg-[#0a0a0a]' : 'bg-[#f7f7f2]';
+
+  return (
+    <section id="home" className={`relative min-h-screen flex items-center overflow-hidden ${bg}`}>
+      {/* BG blobs */}
+      <div className="blob absolute top-1/3 right-[-80px] w-[480px] h-[480px] opacity-[.14] -translate-y-1/2 pointer-events-none"
+        style={{background:'radial-gradient(circle, #e8ff47, #ff6b35)'}} />
+      <div className="blob absolute bottom-[-60px] left-[-60px] w-[300px] h-[300px] opacity-[.08] pointer-events-none"
+        style={{background:'radial-gradient(circle, #60a5fa, #a78bfa)'}} />
+
+      <div className="max-w-6xl mx-auto px-6 py-36 w-full grid md:grid-cols-5 gap-10 items-center">
+        <div className="md:col-span-3">
+          <span className="tag afu d1">Open to opportunities · 2025</span>
+
+          <h1 className={`syne text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[1.04] mt-5 afu d2 ${tc}`}>
+            Alex Rivera —<br/>
+            <span style={{color:'var(--a)'}}>Full-Stack</span><br/>
+            Developer.
+          </h1>
+
+          <p className={`mt-6 text-lg leading-relaxed max-w-lg afu d3 ${sub}`}>
+            I build performant, accessible web products that sit at the intersection of clean engineering and thoughtful design. Based in San Francisco · 3+ years shipping production code.
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-2 afu d3">
+            {['React','Next.js','TypeScript','Node.js','Python'].map(t => (
+              <span key={t} className="text-xs font-semibold px-3 py-1 rounded-full"
+                style={{background:dark?'rgba(255,255,255,.07)':'rgba(0,0,0,.06)', color:dark?'rgba(255,255,255,.6)':'rgba(0,0,0,.55)'}}>
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3 afu d4">
+            <a href="#projects" className="btn btn-y">View My Work</a>
+            <a href="#contact" className={`btn btn-o ${tc}`}>Let's Talk →</a>
+            <a href="#" className={`btn btn-o ${tc}`}
+              onClick={e => { e.preventDefault();
+                const blob = new Blob([CV_TEXT], {type:'text/plain'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href=url; a.download='Alex_Rivera_CV.txt'; a.click();
+              }}>
+              ↓ Download CV
+            </a>
+          </div>
+
+          {/* Social links */}
+          <div className="mt-8 flex gap-5 afu d5">
+            {[['GitHub','https://github.com'],['LinkedIn','https://linkedin.com'],['Twitter','https://twitter.com'],['Email','mailto:alex@rivera.dev']].map(([l,h]) => (
+              <a key={l} href={h} target="_blank" rel="noreferrer"
+                className={`text-xs font-bold tracking-widest uppercase no-underline transition-opacity hover:opacity-100 ${dark?'text-white/30':'text-black/30'}`}>
+                {l}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Right card */}
+        <div className="md:col-span-2 hidden md:flex justify-center items-center afi d3">
+          <div className={`relative rounded-3xl p-8 w-full max-w-xs border ${dark?'bg-white/4 border-white/8':'bg-white border-black/8'}`}
+            style={{boxShadow:dark?'0 0 60px rgba(232,255,71,.07)':'0 8px 40px rgba(0,0,0,.08)'}}>
+            <div className="text-6xl mb-4">👾</div>
+            <p className={`syne text-xl font-bold ${dark?'text-white':'text-[#0a0a0a]'}`}>Alex Rivera</p>
+            <p className={`text-sm mt-1 ${dark?'text-white/50':'text-black/45'}`}>Full-Stack Developer</p>
+            <p className={`text-sm mt-0.5 ${dark?'text-white/35':'text-black/30'}`}>San Francisco, CA 🇺🇸</p>
+            <div className="mt-5 flex flex-col gap-2">
+              {[['50+ Projects Shipped','🚀'],['200+ GitHub Contributions / yr','⭐'],['Available from July 2025','✅']].map(([t,e]) => (
+                <div key={t} className={`flex items-center gap-2 text-xs ${dark?'text-white/55':'text-black/50'}`}>
+                  <span>{e}</span><span>{t}</span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute -top-3 -right-3 text-[.65rem] font-bold syne px-3 py-1 rounded-full"
+              style={{background:'var(--a)',color:'#0a0a0a'}}>
+              FOR HIRE
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Marquee */}
+      <div className={`absolute bottom-0 inset-x-0 overflow-hidden py-3 border-t ${dark?'border-white/5':'border-black/5'}`}>
+        <div className="flex gap-8 marquee-inner whitespace-nowrap w-max">
+          {[...MARQUEE,...MARQUEE].map((t,i) => (
+            <span key={i} className={`text-[.65rem] font-bold tracking-[.18em] uppercase ${dark?'text-white/20':'text-black/20'}`}>
+              {t} ·
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════════
+   ABOUT
+════════════════════════════════ */
+function About({ dark }) {
+  const ref = useReveal();
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/55' : 'text-black/50';
+  const bg = dark ? 'bg-[#0f0f0f]' : 'bg-white';
+  const card = dark ? 'bg-white/4 border-white/7' : 'bg-[#f7f7f2] border-black/6';
+
+  return (
+    <section id="about" className={`py-28 ${bg}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="reveal" ref={ref}>
+          <span className="tag">About Me</span>
+        </div>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-16 items-start">
+          {/* Text */}
+          <div className="reveal" ref={useReveal(100)}>
+            <h2 className={`syne text-4xl md:text-[2.6rem] font-bold leading-tight ${tc}`}>
+              I care about the 1% details<br/>
+              <em>that make users stay.</em>
+            </h2>
+            <p className={`mt-5 leading-relaxed ${sub}`}>
+              I'm Alex Rivera, a full-stack developer with a product mindset. I've shipped apps used by tens of thousands of people, from early-stage startups to growth-stage SaaS companies. My sweet spot: React front ends paired with clean Node.js or Python backends.
+            </p>
+            <p className={`mt-4 leading-relaxed ${sub}`}>
+              Before going independent, I was the founding frontend engineer at a YC-backed AI startup (W23). I care about performance, accessibility, and developer experience — in that order.
+            </p>
+            <p className={`mt-4 leading-relaxed ${sub}`}>
+              Outside work: long-distance cycling, generative art experiments in p5.js, and brewing questionable espresso.
+            </p>
+
+            {/* Experience */}
+            <div className="mt-8 flex flex-col gap-5">
+              {EXPERIENCE.map((e,i) => (
+                <div key={i} className={`pl-4 border-l-2 ${dark?'border-white/10':'border-black/10'}`}>
+                  <p className={`syne font-bold text-sm ${tc}`}>{e.role}</p>
+                  <p className="text-xs mt-0.5" style={{color:'var(--a)'}}>{e.company} · {e.period}</p>
+                  <p className={`text-sm mt-1 leading-relaxed ${sub}`}>{e.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Stats + CV */}
+          <div className="flex flex-col gap-5 reveal" ref={useReveal(200)}>
+            <div className="grid grid-cols-2 gap-4">
+              {[['50+','🚀','Projects shipped'],['30+','🤝','Happy clients'],['3+','⏳','Years exp'],['1.4k','⭐','GitHub stars']].map(([v,e,l]) => (
+                <div key={l} className={`rounded-2xl p-5 border ${card} transition-all duration-250 hover:scale-[1.03] cursor-default`}>
+                  <span className="text-3xl">{e}</span>
+                  <div className={`syne text-2xl font-extrabold mt-2`} style={{color:'var(--a)'}}>{v}</div>
+                  <div className={`text-xs mt-1 ${sub}`}>{l}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CV download card */}
+            <div className={`rounded-2xl p-6 border ${card} flex items-center gap-4`}>
+              <div className="text-4xl">📄</div>
+              <div className="flex-1">
+                <p className={`syne font-bold ${tc}`}>Alex_Rivera_CV.pdf</p>
+                <p className={`text-xs mt-0.5 ${sub}`}>Updated May 2025 · 1 page</p>
+              </div>
+              <a href="#" className="btn btn-y btn-sm"
+                onClick={e => { e.preventDefault();
+                  const blob = new Blob([CV_TEXT], {type:'text/plain'});
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a'); a.href=url; a.download='Alex_Rivera_CV.txt'; a.click();
+                }}>
+                ↓ Download
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════════
+   PROJECTS
+════════════════════════════════ */
+function ProjectModal({ project, dark, onClose }) {
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/55' : 'text-black/50';
+  const bg = dark ? 'bg-[#141414]' : 'bg-white';
+
+  useEffect(() => {
+    const fn = e => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, []);
+
+  return (
+    <div className="modal-bg" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className={`modal-box ${bg} p-8`} style={{border:`1px solid ${project.color}22`}}>
+        <div className="flex items-start justify-between mb-6">
+          <div>
+            <span className="text-5xl">{project.icon}</span>
+            <h3 className={`syne text-3xl font-extrabold mt-3 ${tc}`}>{project.title}</h3>
+            <span className="text-xs font-bold uppercase tracking-widest mt-1 inline-block"
+              style={{color:project.color}}>{project.tag} · {project.year}</span>
+          </div>
+          <button className={`text-2xl bg-transparent border-0 cursor-pointer ${tc}`} onClick={onClose}>✕</button>
+        </div>
+
+        <p className={`leading-relaxed ${sub}`}>{project.longDesc}</p>
+
+        <div className="mt-6">
+          <p className={`text-xs uppercase tracking-widest font-bold mb-3 ${dark?'text-white/35':'text-black/30'}`}>Tech Stack</p>
+          <div className="flex flex-wrap gap-2">
+            {project.tech.map(t => (
+              <span key={t} className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                style={{background:project.color+'18',color:project.color}}>
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-5 px-4 py-3 rounded-xl text-sm font-semibold"
+          style={{background:project.color+'12',color:project.color}}>
+          📊 {project.metrics}
+        </div>
+
+        <div className="mt-6 flex gap-3 flex-wrap">
+          <a href={project.github} target="_blank" rel="noreferrer" className="btn btn-y btn-sm">GitHub →</a>
+          {project.live && <a href={project.live} target="_blank" rel="noreferrer" className={`btn btn-o btn-sm ${tc}`}>Live Demo →</a>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Projects({ dark }) {
+  const ref = useReveal();
+  const [modal, setModal] = useState(null);
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/55' : 'text-black/50';
+  const bg = dark ? 'bg-[#0a0a0a]' : 'bg-[#f7f7f2]';
+  const card = dark ? 'bg-[#141414] border-white/6' : 'bg-white border-black/6';
+
+  return (
+    <section id="projects" className={`py-28 ${bg}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="reveal flex flex-wrap items-end justify-between gap-4 mb-10" ref={ref}>
+          <div>
+            <span className="tag">Projects</span>
+            <h2 className={`syne text-4xl md:text-5xl font-bold mt-4 ${tc}`}>Selected Work</h2>
+          </div>
+          <p className={`text-sm max-w-xs text-right ${sub}`}>Click any card for the full case study.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {PROJECTS.map((p, i) => {
+            const rr = useReveal(i * 90);
+            return (
+              <div key={p.id} className="reveal" ref={rr}>
+                <div className={`pcard rounded-2xl p-7 h-full flex flex-col gap-4 border cursor-pointer ${card}`}
+                  onClick={() => setModal(p)}
+                  style={{borderTop:`3px solid ${p.color}`}}>
+                  <div className="flex items-start justify-between">
+                    <span className="text-4xl">{p.icon}</span>
+                    <div className="text-right">
+                      <span className="text-xs font-bold tracking-widest uppercase block" style={{color:p.color}}>{p.tag}</span>
+                      <span className={`text-xs ${sub}`}>{p.year}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex-1">
+                    <h3 className={`syne text-xl font-bold ${tc}`}>{p.title}</h3>
+                    <p className={`mt-2 text-sm leading-relaxed ${sub}`}>{p.desc}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.tech.slice(0,4).map(t => (
+                      <span key={t} className="text-[.7rem] font-semibold px-2.5 py-0.5 rounded-full"
+                        style={{background:p.color+'15',color:p.color}}>{t}</span>
+                    ))}
+                    {p.tech.length > 4 && <span className={`text-[.7rem] font-semibold px-2.5 py-0.5 rounded-full ${dark?'bg-white/6 text-white/40':'bg-black/5 text-black/40'}`}>+{p.tech.length-4}</span>}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t" style={{borderColor:dark?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)'}}>
+                    <span className="text-xs" style={{color:p.color}}>📊 {p.metrics}</span>
+                    <span className="text-xs font-bold" style={{color:p.color}}>View Case Study →</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {modal && <ProjectModal project={modal} dark={dark} onClose={() => setModal(null)} />}
+    </section>
+  );
+}
+
+/* ════════════════════════════════
+   SKILLS
+════════════════════════════════ */
+function Skills({ dark }) {
+  const ref = useReveal();
+  const [animated, setAnimated] = useState(false);
+  const secRef = useRef(null);
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/55' : 'text-black/50';
+  const bg = dark ? 'bg-[#0f0f0f]' : 'bg-white';
+  const card = dark ? 'bg-white/4 border-white/7' : 'bg-[#f7f7f2] border-black/6';
+
+  useEffect(() => {
+    const el = secRef.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setAnimated(true); obs.disconnect(); } }, { threshold:.25 });
+    obs.observe(el); return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section id="skills" className={`py-28 ${bg}`} ref={secRef}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="reveal" ref={ref}>
+          <span className="tag">Skills</span>
+          <h2 className={`syne text-4xl md:text-5xl font-bold mt-4 ${tc}`}>My Toolkit</h2>
+        </div>
+
+        <div className="mt-12 grid md:grid-cols-2 gap-x-16 gap-y-7">
+          {SKILLS.map((s, i) => {
+            const rr = useReveal(i * 80);
+            return (
+              <div key={s.name} className="reveal" ref={rr}>
+                <div className="flex justify-between mb-2">
+                  <span className={`font-semibold text-sm ${tc}`}>{s.name}</span>
+                  <span className="text-sm font-mono" style={{color:'var(--a)'}}>{s.pct}%</span>
+                </div>
+                <div className={`h-[3px] rounded-full ${dark?'bg-white/8':'bg-black/8'}`}>
+                  <div className="sbar" style={{width:animated?`${s.pct}%`:'0%'}} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-14 reveal" ref={useReveal(300)}>
+          <p className={`text-xs uppercase tracking-[.16em] font-bold mb-5 ${dark?'text-white/30':'text-black/30'}`}>Tools & Environment</p>
+          <div className="flex flex-wrap gap-2.5">
+            {TOOLS.map(t => (
+              <span key={t} className={`text-sm font-medium px-4 py-2 rounded-full border transition-all duration-200 hover:scale-105 cursor-default ${dark?'border-white/10 text-white/55 hover:border-[#e8ff47]/40 hover:text-white':'border-black/10 text-black/50 hover:border-black/30 hover:text-black'}`}>
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════════
+   CONTACT FORM — Step 6
+════════════════════════════════ */
+function Contact({ dark }) {
+  const ref = useReveal();
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/55' : 'text-black/50';
+  const bg = dark ? 'bg-[#0a0a0a]' : 'bg-[#f7f7f2]';
+  const fieldBorder = dark ? 'border-white/15 text-white placeholder:text-white/25' : 'border-black/15 text-[#0a0a0a] placeholder:text-black/30';
+  const fieldFocus = dark ? 'focus:border-[#e8ff47]' : 'focus:border-[#0a0a0a]';
+
+  const [form, setForm] = useState({ name:'', email:'', subject:'', message:'', budget:'' });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [touched, setTouched] = useState({});
+
+  const validators = {
+    name: v => !v.trim() ? 'Name is required.' : v.trim().length < 2 ? 'Name must be at least 2 characters.' : '',
+    email: v => !v.trim() ? 'Email is required.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? 'Please enter a valid email address.' : '',
+    subject: v => !v.trim() ? 'Subject is required.' : '',
+    message: v => !v.trim() ? 'Message is required.' : v.trim().length < 20 ? 'Message must be at least 20 characters.' : v.trim().length > 1000 ? 'Message must be under 1000 characters.' : '',
+  };
+
+  const validate = (fields = form) => {
+    const errs = {};
+    Object.keys(validators).forEach(k => { const e = validators[k](fields[k]); if (e) errs[k] = e; });
+    return errs;
+  };
+
+  const handleChange = (k, v) => {
+    const next = { ...form, [k]: v };
+    setForm(next);
+    if (touched[k]) {
+      const errs = validate(next);
+      setErrors(prev => ({ ...prev, [k]: errs[k] || '' }));
+    }
+  };
+
+  const handleBlur = k => {
+    setTouched(prev => ({ ...prev, [k]: true }));
+    const errs = validate();
+    setErrors(prev => ({ ...prev, [k]: errs[k] || '' }));
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const allTouched = Object.keys(validators).reduce((a,k) => ({...a,[k]:true}),{});
+    setTouched(allTouched);
+    const errs = validate();
+    setErrors(errs);
+    if (Object.keys(errs).length) return;
+
+    setStatus('loading');
+    // Simulate API call (replace with EmailJS / Formspree / Resend)
+    await new Promise(r => setTimeout(r, 1600));
+    setStatus('success');
+    setForm({ name:'', email:'', subject:'', message:'', budget:'' });
+    setTouched({});
+    setTimeout(() => setStatus('idle'), 5000);
+  };
+
+  const inputClass = k => `field ${fieldBorder} ${fieldFocus} ${errors[k] && touched[k] ? 'border-red-400' : ''}`;
+
+  return (
+    <section id="contact" className={`py-28 ${bg}`}>
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="reveal" ref={ref}>
+          <span className="tag">Contact</span>
+          <h2 className={`syne text-4xl md:text-5xl font-bold mt-4 ${tc}`}>
+            Let's build something<br/>
+            <span style={{color:'var(--a)'}}>extraordinary.</span>
+          </h2>
+          <p className={`mt-4 max-w-xl ${sub}`}>
+            Open to freelance projects, full-time roles, and technical consulting. I typically respond within 24 hours.
+          </p>
+        </div>
+
+        <div className="mt-14 grid md:grid-cols-5 gap-12">
+          {/* Left — info */}
+          <div className="md:col-span-2 flex flex-col gap-7 reveal" ref={useReveal(100)}>
+            {[
+              { icon:'📧', label:'Email', val:'alex@rivera.dev', href:'mailto:alex@rivera.dev' },
+              { icon:'💼', label:'LinkedIn', val:'/in/alexrivera-dev', href:'https://linkedin.com' },
+              { icon:'🐙', label:'GitHub', val:'@alex-rivera', href:'https://github.com' },
+              { icon:'🐦', label:'Twitter / X', val:'@alexriveradev', href:'https://twitter.com' },
+            ].map(({ icon, label, val, href }) => (
+              <a key={label} href={href} target="_blank" rel="noreferrer"
+                className={`flex items-center gap-3 no-underline group ${tc}`}>
+                <span className="text-2xl">{icon}</span>
+                <div>
+                  <p className={`text-xs uppercase tracking-widest font-bold ${dark?'text-white/35':'text-black/30'}`}>{label}</p>
+                  <p className="text-sm font-medium group-hover:underline" style={{textDecorationColor:'var(--a)'}}>{val}</p>
+                </div>
+              </a>
+            ))}
+
+            <div className={`mt-4 rounded-2xl p-5 border ${dark?'bg-white/4 border-white/8':'bg-white border-black/7'}`}>
+              <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{color:'var(--a)'}}>Currently Available</p>
+              <p className={`text-sm ${sub}`}>Accepting projects starting <strong className={tc}>July 2025</strong>. Prefer long-term engagements but happy to discuss.</p>
+            </div>
+          </div>
+
+          {/* Right — form */}
+          <div className="md:col-span-3 reveal" ref={useReveal(180)}>
+            {status === 'success' ? (
+              <div className="toast flex flex-col items-center justify-center text-center py-16 gap-4">
+                <span className="text-6xl">🎉</span>
+                <h3 className={`syne text-2xl font-bold ${tc}`}>Message sent!</h3>
+                <p className={sub}>Thanks for reaching out, Alex. I'll get back to you within 24 hours.</p>
+                <button className="btn btn-y mt-2" onClick={() => setStatus('idle')}>Send another →</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-7">
+                <div className="grid md:grid-cols-2 gap-7">
+                  {/* Name */}
+                  <div>
+                    <label className={`block text-xs uppercase tracking-widest font-bold mb-1.5 ${dark?'text-white/40':'text-black/35'}`}>
+                      Full Name <span style={{color:'var(--a)'}}>*</span>
+                    </label>
+                    <input className={inputClass('name')} value={form.name} placeholder="Jane Smith"
+                      onChange={e => handleChange('name', e.target.value)}
+                      onBlur={() => handleBlur('name')} />
+                    {errors.name && touched.name && <p className="err-msg">{errors.name}</p>}
+                  </div>
+                  {/* Email */}
+                  <div>
+                    <label className={`block text-xs uppercase tracking-widest font-bold mb-1.5 ${dark?'text-white/40':'text-black/35'}`}>
+                      Email Address <span style={{color:'var(--a)'}}>*</span>
+                    </label>
+                    <input type="email" className={inputClass('email')} value={form.email} placeholder="jane@company.com"
+                      onChange={e => handleChange('email', e.target.value)}
+                      onBlur={() => handleBlur('email')} />
+                    {errors.email && touched.email && <p className="err-msg">{errors.email}</p>}
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-7">
+                  {/* Subject */}
+                  <div>
+                    <label className={`block text-xs uppercase tracking-widest font-bold mb-1.5 ${dark?'text-white/40':'text-black/35'}`}>
+                      Subject <span style={{color:'var(--a)'}}>*</span>
+                    </label>
+                    <input className={inputClass('subject')} value={form.subject} placeholder="Project inquiry"
+                      onChange={e => handleChange('subject', e.target.value)}
+                      onBlur={() => handleBlur('subject')} />
+                    {errors.subject && touched.subject && <p className="err-msg">{errors.subject}</p>}
+                  </div>
+                  {/* Budget (optional) */}
+                  <div>
+                    <label className={`block text-xs uppercase tracking-widest font-bold mb-1.5 ${dark?'text-white/40':'text-black/35'}`}>
+                      Budget Range <span className={`normal-case font-normal ${sub}`}>(optional)</span>
+                    </label>
+                    <select className={`field ${fieldBorder} ${fieldFocus} bg-transparent`} value={form.budget}
+                      onChange={e => handleChange('budget', e.target.value)}
+                      style={{background:'transparent'}}>
+                      <option value="" className={dark?'bg-[#141414]':'bg-white'}>Select range…</option>
+                      {['< $5k','$5k – $15k','$15k – $50k','$50k+','Full-time role'].map(o => (
+                        <option key={o} value={o} className={dark?'bg-[#141414]':'bg-white'}>{o}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label className={`block text-xs uppercase tracking-widest font-bold mb-1.5 ${dark?'text-white/40':'text-black/35'}`}>
+                    Message <span style={{color:'var(--a)'}}>*</span>
+                  </label>
+                  <textarea className={inputClass('message')} rows={5} value={form.message}
+                    placeholder="Tell me about your project, timeline, and any technical constraints…"
+                    onChange={e => handleChange('message', e.target.value)}
+                    onBlur={() => handleBlur('message')}
+                    style={{resize:'vertical'}} />
+                  <div className="flex justify-between mt-1">
+                    {errors.message && touched.message ? <p className="err-msg">{errors.message}</p> : <span />}
+                    <span className={`text-xs ${form.message.length > 900 ? 'text-red-400' : sub}`}>{form.message.length}/1000</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 flex-wrap">
+                  <button type="submit" className="btn btn-y" disabled={status==='loading'}
+                    style={{opacity: status==='loading'?.7:1, cursor: status==='loading'?'wait':'pointer'}}>
+                    {status === 'loading' ? (
+                      <span className="flex items-center gap-2">
+                        <span className="inline-block w-4 h-4 border-2 border-black/30 border-t-black rounded-full" style={{animation:'spin .6s linear infinite'}} />
+                        Sending…
+                      </span>
+                    ) : 'Send Message →'}
+                  </button>
+                  <p className={`text-xs ${sub}`}>
+                    Or email directly at <a href="mailto:alex@rivera.dev" style={{color:'var(--a)'}}>alex@rivera.dev</a>
+                  </p>
+                </div>
+
+                {/* Email service hint */}
+                <div className={`text-xs rounded-xl p-4 border ${dark?'border-white/7 text-white/35':'border-black/7 text-black/35'}`}>
+                  💡 <strong className={dark?'text-white/50':'text-black/45'}>To connect this form to a real email service:</strong> Replace the simulated API call with <a href="https://www.emailjs.com" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>EmailJS</a> (client-side, free tier) or <a href="https://formspree.io" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>Formspree</a> (no back-end needed) or <a href="https://resend.com" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>Resend</a> (Node.js API route).
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════════
+   GITHUB + VERCEL GUIDE — Steps 7 & 8
+════════════════════════════════ */
+function GuideModal({ dark, onClose }) {
+  const [tab, setTab] = useState('github');
+  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
+  const sub = dark ? 'text-white/60' : 'text-black/55';
+  const bg = dark ? 'bg-[#0f0f0f]' : 'bg-white';
+  const codeBg = dark ? 'bg-[#1a1a1a] text-[#e8ff47]' : 'bg-[#f0f0eb] text-[#0a0a0a]';
+
+  useEffect(() => {
+    const fn = e => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, []);
+
+  const Code = ({ children }) => (
+    <code className={`block font-mono text-sm rounded-xl px-5 py-3.5 my-2 select-all overflow-x-auto whitespace-pre ${codeBg}`}>
+      {children}
+    </code>
+  );
+
+  const Step = ({ n, title, children }) => (
+    <div className="flex gap-4 mt-6">
+      <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold syne"
+        style={{background:'var(--a)', color:'#0a0a0a'}}>{n}</div>
+      <div className="flex-1">
+        <p className={`font-bold syne text-sm ${tc}`}>{title}</p>
+        <div className={`text-sm mt-1 ${sub}`}>{children}</div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="modal-bg" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className={`modal-box ${bg} p-8 border ${dark?'border-white/8':'border-black/8'}`}>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className={`syne text-2xl font-extrabold ${tc}`}>Deploy Your Portfolio</h2>
+          <button className={`text-2xl bg-transparent border-0 cursor-pointer ${tc}`} onClick={onClose}>✕</button>
+        </div>
+
+        {/* Tabs */}
+        <div className={`flex rounded-xl p-1 mb-8 ${dark?'bg-white/5':'bg-black/5'}`}>
+          {[['github','📦 Step 7 — Push to GitHub'],['vercel','🚀 Step 8 — Deploy on Vercel']].map(([id,label]) => (
+            <button key={id} className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-bold syne cursor-pointer border-0 transition-all ${tab===id ? 'text-[#0a0a0a]' : dark?'text-white/45 bg-transparent':'text-black/40 bg-transparent'}`}
+              style={tab===id?{background:'var(--a)'}:{}}
+              onClick={() => setTab(id)}>
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {tab === 'github' && (
+          <div>
+            <p className={`text-sm ${sub} mb-2`}>Run these commands in your project directory terminal (<code className="font-mono text-xs">your-portfolio/</code>).</p>
+
+            <Step n="1" title="Initialize Git (if not done)">
+              <p>Open your terminal inside the project folder:</p>
+              <Code>cd your-portfolio
+git init</Code>
+            </Step>
+
+            <Step n="2" title="Create a .gitignore">
+              <p>Make sure <code className="font-mono text-xs">node_modules</code> and build artifacts are excluded. Vite projects include this by default. Verify it contains:</p>
+              <Code>node_modules/
+dist/
+.env
+.env.local</Code>
+            </Step>
+
+            <Step n="3" title="Stage all files">
+              <Code>git add .</Code>
+            </Step>
+
+            <Step n="4" title="Make your first commit">
+              <Code>git commit -m "feat: initial portfolio commit"</Code>
+            </Step>
+
+            <Step n="5" title="Create a new repo on GitHub">
+              <p>Go to <a href="https://github.com/new" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>github.com/new</a> → name it <strong>portfolio</strong> → leave it <strong>Public</strong> → click <strong>Create repository</strong>. Do NOT initialize with README.</p>
+            </Step>
+
+            <Step n="6" title="Add the remote origin">
+              <Code>{`git remote add origin https://github.com/YOUR_USERNAME/portfolio.git\ngit branch -M main`}</Code>
+            </Step>
+
+            <Step n="7" title="Push to GitHub">
+              <Code>git push -u origin main</Code>
+              <p className="mt-2">✅ Your code is now live on GitHub! Future pushes: just run <code className="font-mono text-xs">git push</code>.</p>
+            </Step>
+
+            <div className={`mt-6 rounded-xl p-4 text-sm border ${dark?'border-white/7 text-white/45':'border-black/7 text-black/40'}`}>
+              💡 <strong>Pro tip:</strong> Install the <a href="https://cli.github.com/" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>GitHub CLI</a> (<code className="font-mono text-xs">gh</code>) to create repos and push without leaving the terminal: <code className="font-mono text-xs">gh repo create portfolio --public --push --source=.</code>
+            </div>
+          </div>
+        )}
+
+        {tab === 'vercel' && (
+          <div>
+            <p className={`text-sm ${sub} mb-2`}>Vercel deploys Vite/React apps in &lt;2 minutes — no config needed.</p>
+
+            <Step n="1" title="Push your code to GitHub first">
+              <p>Complete Step 7 above. Vercel deploys directly from GitHub.</p>
+            </Step>
+
+            <Step n="2" title="Create a Vercel account">
+              <p>Go to <a href="https://vercel.com/signup" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>vercel.com/signup</a> and sign up with your GitHub account. This links them automatically.</p>
+            </Step>
+
+            <Step n="3" title="Import your GitHub repo">
+              <p>In the Vercel dashboard click <strong>"Add New → Project"</strong> → find your <strong>portfolio</strong> repo → click <strong>Import</strong>.</p>
+            </Step>
+
+            <Step n="4" title="Configure the build settings">
+              <p>Vercel auto-detects Vite. Verify these defaults are set:</p>
+              <Code>{`Framework Preset: Vite
+Build Command:   npm run build
+Output Directory: dist
+Install Command: npm install`}</Code>
+            </Step>
+
+            <Step n="5" title="Add environment variables (if any)">
+              <p>If you have a <code className="font-mono text-xs">.env</code> file with API keys, add each variable under <strong>Environment Variables</strong> before deploying.</p>
+            </Step>
+
+            <Step n="6" title="Deploy!">
+              <p>Click <strong>"Deploy"</strong>. Vercel will build and serve your site. In ~60 seconds you'll get a live URL like:</p>
+              <Code>https://portfolio-alex-rivera.vercel.app</Code>
+            </Step>
+
+            <Step n="7" title="Set up a custom domain (optional)">
+              <p>In your project dashboard go to <strong>Settings → Domains</strong> → add your domain (e.g. <code className="font-mono text-xs">alexrivera.dev</code>). Vercel provides free TLS automatically.</p>
+            </Step>
+
+            <Step n="8" title="Continuous deployment (automatic!)">
+              <p>Every <code className="font-mono text-xs">git push</code> to <code className="font-mono text-xs">main</code> triggers a new deployment. Pull requests get preview URLs automatically. 🎉</p>
+            </Step>
+
+            <div className={`mt-6 rounded-xl p-4 text-sm border ${dark?'border-white/7 text-white/45':'border-black/7 text-black/40'}`}>
+              💡 <strong>CLI alternative:</strong> <code className="font-mono text-xs">npm i -g vercel</code> then run <code className="font-mono text-xs">vercel</code> inside your project folder to deploy directly from the terminal — no dashboard needed.
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+function Footer({ dark, openGuide }) {
+  const bg = dark ? 'bg-[#0a0a0a] border-white/6' : 'bg-[#f7f7f2] border-black/6';
+  const tc = dark ? 'text-white/30' : 'text-black/30';
+
+  return (
+    <footer className={`border-t py-10 ${bg}`}>
+      <div className={`max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-5 text-sm ${tc}`}>
+        <span className="syne font-extrabold text-base">
+          alex.<span style={{color:'var(--a)'}}>dev</span>
+        </span>
+        <div className="flex flex-wrap justify-center gap-6">
+          {['GitHub','LinkedIn','Twitter','Email'].map(s => (
+            <a key={s} href={s==='Email'?'mailto:alex@rivera.dev':'#'}
+              className={`${tc} no-underline hover:opacity-80 transition-opacity`}>{s}</a>
+          ))}
+          <button className={`${tc} no-underline hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer text-sm`}
+            onClick={openGuide}>
+            📚 Deploy Guide
+          </button>
+        </div>
+        <span className="text-xs">© {new Date().getFullYear()} Alex Rivera. Built with React + Vite.</span>
+      </div>
+    </footer>
+  );
+}
+
+/* ════════════════════════════════
+   CV TEXT
+════════════════════════════════ */
+const CV_TEXT = `ALEX RIVERA — Full-Stack Developer
+===================================
+📍 San Francisco, CA  |  📧 alex@rivera.dev  |  🌐 alexrivera.dev
+GitHub: @alex-rivera  |  LinkedIn: /in/alexrivera-dev
+
+SUMMARY
+-------
+Full-stack developer with 3+ years of experience building production-grade
+web applications. Specialize in React/Next.js front ends, Node.js/Python
+back ends, and cloud infrastructure (AWS). Shipped 50+ projects across
+SaaS, e-commerce, and mobile domains.
+
+EXPERIENCE
+----------
+Senior Frontend Engineer — Veritas AI (Jan 2023 – Present)
+• Led UI architecture for YC-backed ML ops platform
+• Built real-time inference monitoring dashboard (WebSockets + React)
+• Reduced bundle size by 42% through code-splitting and tree-shaking
+
+Full-Stack Developer — Freelance (Jun 2021 – Dec 2022)
+• Delivered 20+ client projects; $0–$50k budget range
+• Stack: Next.js, Django, PostgreSQL, AWS, Stripe, Shopify
+
+Frontend Intern — Pixel Labs (Jan – May 2021)
+• New onboarding flow reduced time-to-activation by 22%
+• Built with React, Framer Motion, Storybook
+
+SELECTED PROJECTS
+-----------------
+NeuralDash — AI SaaS dashboard (2024)
+  React · FastAPI · PostgreSQL · AWS ECS · 2M events/day
+
+Arcadia Shop — E-commerce platform (2024)
+  Next.js · Three.js · Shopify API · +38% conversion
+
+Pulse Health — Mobile app (2023)
+  React Native · Node.js · AWS Lambda · 4,200+ downloads · 4.7★
+
+Codex CLI — OSS dev tool (2023)
+  Node.js · TypeScript · OpenAI API · 1.4k GitHub stars
+
+SKILLS
+------
+React/Next.js · TypeScript · Node.js · Python/FastAPI
+Tailwind CSS · PostgreSQL · MongoDB · AWS · Docker
+React Native · GraphQL · Git · Figma
+
+EDUCATION
+---------
+B.S. Computer Science — UC Davis (2017 – 2021)
+GPA: 3.8 · Dean's List · Senior Thesis: "ML-Augmented UI Testing"
+`;
+
+/* ════════════════════════════════
+   APP
+════════════════════════════════ */
+function App() {
+  const [dark, setDark] = useState(true);
+  const [guideOpen, setGuideOpen] = useState(false);
+
+  return (
+    <div>
+      <Navbar dark={dark} setDark={setDark} />
+      <Hero dark={dark} />
+      <About dark={dark} />
+      <Projects dark={dark} />
+      <Skills dark={dark} />
+      <Contact dark={dark} />
+      <Footer dark={dark} openGuide={() => setGuideOpen(true)} />
+      {guideOpen && <GuideModal dark={dark} onClose={() => setGuideOpen(false)} />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
