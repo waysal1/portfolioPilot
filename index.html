@@ -276,13 +276,13 @@ function Hero({ dark }) {
           <span className="tag afu d1">Open to opportunities · 2025</span>
 
           <h1 className={`syne text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[1.04] mt-5 afu d2 ${tc}`}>
-            Alex Rivera —<br/>
+            Khondokar Waysal E Mustafa —<br/>
             <span style={{color:'var(--a)'}}>Full-Stack</span><br/>
             Developer.
           </h1>
 
           <p className={`mt-6 text-lg leading-relaxed max-w-lg afu d3 ${sub}`}>
-            I build performant, accessible web products that sit at the intersection of clean engineering and thoughtful design. Based in San Francisco · 3+ years shipping production code.
+            I build performant, accessible web products that sit at the intersection of clean engineering and thoughtful design. Based in Dhaka, Bangladesh·
           </p>
 
           <div className="mt-3 flex flex-wrap gap-2 afu d3">
@@ -301,7 +301,7 @@ function Hero({ dark }) {
               onClick={e => { e.preventDefault();
                 const blob = new Blob([CV_TEXT], {type:'text/plain'});
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a'); a.href=url; a.download='Alex_Rivera_CV.txt'; a.click();
+                const a = document.createElement('a'); a.href=url; a.download='Khondokar_Waysal_E_Mustafa.txt'; a.click();
               }}>
               ↓ Download CV
             </a>
@@ -323,9 +323,9 @@ function Hero({ dark }) {
           <div className={`relative rounded-3xl p-8 w-full max-w-xs border ${dark?'bg-white/4 border-white/8':'bg-white border-black/8'}`}
             style={{boxShadow:dark?'0 0 60px rgba(232,255,71,.07)':'0 8px 40px rgba(0,0,0,.08)'}}>
             <div className="text-6xl mb-4">👾</div>
-            <p className={`syne text-xl font-bold ${dark?'text-white':'text-[#0a0a0a]'}`}>Alex Rivera</p>
+            <p className={`syne text-xl font-bold ${dark?'text-white':'text-[#0a0a0a]'}`}>Khondokar Waysal E Mustafa</p>
             <p className={`text-sm mt-1 ${dark?'text-white/50':'text-black/45'}`}>Full-Stack Developer</p>
-            <p className={`text-sm mt-0.5 ${dark?'text-white/35':'text-black/30'}`}>San Francisco, CA 🇺🇸</p>
+            <p className={`text-sm mt-0.5 ${dark?'text-white/35':'text-black/30'}`}>Dhaka, Bangladesh </p>
             <div className="mt-5 flex flex-col gap-2">
               {[['50+ Projects Shipped','🚀'],['200+ GitHub Contributions / yr','⭐'],['Available from July 2025','✅']].map(([t,e]) => (
                 <div key={t} className={`flex items-center gap-2 text-xs ${dark?'text-white/55':'text-black/50'}`}>
@@ -380,10 +380,10 @@ function About({ dark }) {
               <em>that make users stay.</em>
             </h2>
             <p className={`mt-5 leading-relaxed ${sub}`}>
-              I'm Alex Rivera, a full-stack developer with a product mindset. I've shipped apps used by tens of thousands of people, from early-stage startups to growth-stage SaaS companies. My sweet spot: React front ends paired with clean Node.js or Python backends.
+              I'm Khondokar Waysal E Mustafa, a full-stack developer with a product mindset. I've shipped apps used by tens of thousands of people, from early-stage startups to growth-stage SaaS companies. My sweet spot: React front ends paired with clean Node.js or Python backends.
             </p>
             <p className={`mt-4 leading-relaxed ${sub}`}>
-              Before going independent, I was the founding frontend engineer at a YC-backed AI startup (W23). I care about performance, accessibility, and developer experience — in that order.
+            I care about performance, accessibility, and developer experience — in that order.
             </p>
             <p className={`mt-4 leading-relaxed ${sub}`}>
               Outside work: long-distance cycling, generative art experiments in p5.js, and brewing questionable espresso.
@@ -417,8 +417,8 @@ function About({ dark }) {
             <div className={`rounded-2xl p-6 border ${card} flex items-center gap-4`}>
               <div className="text-4xl">📄</div>
               <div className="flex-1">
-                <p className={`syne font-bold ${tc}`}>Alex_Rivera_CV.pdf</p>
-                <p className={`text-xs mt-0.5 ${sub}`}>Updated May 2025 · 1 page</p>
+                <p className={`syne font-bold ${tc}`}>Khondokar_Waysal_E_Mustafa.pdf</p>
+                <p className={`text-xs mt-0.5 ${sub}`}>Updated March 2026 · 1 page</p>
               </div>
               <a href="#" className="btn btn-y btn-sm"
                 onClick={e => { e.preventDefault();
@@ -721,7 +721,7 @@ function Contact({ dark }) {
               <div className="toast flex flex-col items-center justify-center text-center py-16 gap-4">
                 <span className="text-6xl">🎉</span>
                 <h3 className={`syne text-2xl font-bold ${tc}`}>Message sent!</h3>
-                <p className={sub}>Thanks for reaching out, Alex. I'll get back to you within 24 hours.</p>
+                <p className={sub}>Thanks for reaching out. I'll get back to you within 24 hours.</p>
                 <button className="btn btn-y mt-2" onClick={() => setStatus('idle')}>Send another →</button>
               </div>
             ) : (
