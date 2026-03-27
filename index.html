@@ -123,7 +123,7 @@ const PROJECTS = [
     desc:'Real-time 3D city builder and simulation system using the OpenGL graphics pipeline. Features procedural generation, interactive building placement, and dynamic traffic simulation.',
     longDesc:'This project is a real-time 3D city builder and simulation system developed using the OpenGL graphics pipeline in Python. It combines procedural generation, interactive building placement, and dynamic traffic simulation into a fully explorable environment. The application allows users to create, modify, and interact with a procedurally generated city while navigating through it using both orbit and free-fly camera systems. The rendering engine handles terrain generation, road networks, building meshes, and vehicle pathing — all updated in real time.',
     tech:['Python','OpenGL','PyOpenGL','GLFW','NumPy','Procedural Generation'],
-    github:'https://github.com',
+    github:'https://github.com/waysal1',
     live:null,
     metrics:'Real-time 3D rendering · Orbit & free-fly camera · Dynamic traffic sim',
   },
@@ -135,7 +135,7 @@ const PROJECTS = [
     desc:'Built and evaluated multiple ML models to analyze and predict food delivery times. Covers the full pipeline — EDA, feature engineering, supervised & unsupervised model comparison.',
     longDesc:'This project focuses on building and evaluating multiple machine learning models to analyze and predict food delivery times using a structured dataset. The workflow covers the complete ML pipeline — from exploratory data analysis (EDA) and feature engineering to model comparison and evaluation using both supervised and unsupervised techniques. Models explored include Linear Regression, Random Forest, XGBoost, and K-Means clustering for delivery zone segmentation. Key insights were surfaced through data visualizations built with Matplotlib and Seaborn.',
     tech:['Python','scikit-learn','XGBoost','Pandas','Matplotlib','Seaborn','Jupyter'],
-    github:'https://github.com',
+    github:'https://github.com/waysal1',
     live:null,
     metrics:'Multiple ML models · Full EDA pipeline · Supervised & unsupervised',
   },
@@ -147,7 +147,7 @@ const PROJECTS = [
     desc:'Full-stack gym management platform handling admin operations and member interactions through a centralized SQL-backed system — memberships, attendance, and equipment management.',
     longDesc:'This project is a full-stack gym management system designed to handle both administrative operations and member interactions through a centralized database-driven platform. It integrates a SQL-based backend with a user-friendly frontend interface to streamline gym operations such as membership management, attendance tracking, and equipment handling. The system features role-based access control separating admin and member views, automated membership expiry logic, and a clean dashboard for monitoring gym metrics in real time.',
     tech:['Python','SQL','SQLite','HTML','CSS','JavaScript','Flask'],
-    github:'https://github.com',
+    github:'https://github.com/waysal1',
     live:null,
     metrics:'Role-based access · Membership & attendance tracking · Equipment mgmt',
   },
@@ -286,18 +286,14 @@ function Hero({ dark }) {
             <a href="#projects" className="btn btn-y">View My Work</a>
             <a href="#contact" className={`btn btn-o ${tc}`}>Let's Talk →</a>
             <a href="#" className={`btn btn-o ${tc}`}
-              onClick={e => { e.preventDefault();
-                const blob = new Blob([CV_TEXT], {type:'text/plain'});
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a'); a.href=url; a.download='Waysal_Mustafa_CV.txt'; a.click();
-              }}>
+              onClick={e => { e.preventDefault(); downloadCV(); }}>
               ↓ Download CV
             </a>
           </div>
 
           {/* Social links */}
           <div className="mt-8 flex gap-5 afu d5">
-            {[['GitHub','https://github.com'],['LinkedIn','https://linkedin.com'],['Email','mailto:khondokarwaysalemustafa@gmail.com']].map(([l,h]) => (
+            {[['GitHub','https://github.com/waysal1'],['LinkedIn','https://linkedin.com/in/khondokar-waysal-e-mustafa-802297210/?skipRedirect=true'],['Email','mailto:khondokarwaysalemustafa@gmail.com']].map(([l,h]) => (
               <a key={l} href={h} target="_blank" rel="noreferrer"
                 className={`text-xs font-bold tracking-widest uppercase no-underline transition-opacity hover:opacity-100 ${dark?'text-white/30':'text-black/30'}`}>
                 {l}
@@ -409,11 +405,7 @@ function About({ dark }) {
                 <p className={`text-xs mt-0.5 ${sub}`}>Updated 2025 · CS Student @ BRAC</p>
               </div>
               <a href="#" className="btn btn-y btn-sm"
-                onClick={e => { e.preventDefault();
-                  const blob = new Blob([CV_TEXT], {type:'text/plain'});
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a'); a.href=url; a.download='Waysal_Mustafa_CV.txt'; a.click();
-                }}>
+                onClick={e => { e.preventDefault(); downloadCV(); }}>
                 ↓ Download
               </a>
             </div>
@@ -683,8 +675,8 @@ function Contact({ dark }) {
           <div className="md:col-span-2 flex flex-col gap-7 reveal" ref={useReveal(100)}>
             {[
               { icon:'📧', label:'Email', val:'khondokarwaysalemustafa@gmail.com', href:'mailto:khondokarwaysalemustafa@gmail.com' },
-              { icon:'💼', label:'LinkedIn', val:'/in/waysal-mustafa', href:'https://linkedin.com' },
-              { icon:'🐙', label:'GitHub', val:'@waysal-mustafa', href:'https://github.com' },
+              { icon:'💼', label:'LinkedIn', val:'/in/waysal-mustafa', href:'https://linkedin.com/in/khondokar-waysal-e-mustafa-802297210/?skipRedirect=true' },
+              { icon:'🐙', label:'GitHub', val:'@waysal-mustafa', href:'https://github.com/waysal1' },
               { icon:'🏫', label:'University', val:'BRAC University · CSE · Year 3', href:'https://www.bracu.ac.bd' },
             ].map(({ icon, label, val, href }) => (
               <a key={label} href={href} target="_blank" rel="noreferrer"
@@ -970,7 +962,7 @@ function Footer({ dark, openGuide }) {
           waysal.<span style={{color:'var(--a)'}}>dev</span>
         </span>
         <div className="flex flex-wrap justify-center gap-6">
-          {[['GitHub','https://github.com'],['LinkedIn','https://linkedin.com'],['Email','mailto:khondokarwaysalemustafa@gmail.com']].map(([s,h]) => (
+          {[['GitHub','https://github.com/waysal1'],['LinkedIn','https://linkedin.com/in/khondokar-waysal-e-mustafa-802297210/?skipRedirect=true'],['Email','mailto:khondokarwaysalemustafa@gmail.com']].map(([s,h]) => (
             <a key={s} href={h} target="_blank" rel="noreferrer"
               className={`${tc} no-underline hover:opacity-80 transition-opacity`}>{s}</a>
           ))}
@@ -988,72 +980,17 @@ function Footer({ dark, openGuide }) {
 /* ════════════════════════════════
    CV TEXT
 ════════════════════════════════ */
-const CV_TEXT = `KHONDOKAR WAYSAL E MUSTAFA
-===================================
-📍 Dhaka, Bangladesh
-📧 khondokarwaysalemustafa@gmail.com
-🎓 BRAC University — B.Sc. Computer Science & Engineering
-
-SUMMARY
--------
-Third-year CSE student at BRAC University (enrolled Summer 2023)
-with hands-on experience in graphics programming (OpenGL), machine
-learning pipelines, and full-stack database applications. Open to
-internships, part-time roles, and collaborative projects.
-
-EDUCATION
----------
-B.Sc. in Computer Science & Engineering
-BRAC University, Dhaka, Bangladesh
-Enrolled: Summer 2023 | Status: Year 3 (Ongoing)
-
-Relevant Coursework:
-• Data Structures & Algorithms
-• Computer Graphics (OpenGL)
-• Database Systems
-• Machine Learning
-• Software Engineering
-• Object-Oriented Programming
-
-PROJECTS
---------
-1. Interactive City Builder & Simulation (OpenGL) — 2024
-   Tech: Python, PyOpenGL, GLFW, NumPy
-   • Real-time 3D city builder using the OpenGL graphics pipeline
-   • Procedural terrain & building generation
-   • Dynamic traffic simulation with pathfinding
-   • Dual camera system: orbit mode & free-fly mode
-
-2. Food Delivery Time Prediction (Machine Learning) — 2024
-   Tech: Python, scikit-learn, XGBoost, Pandas, Matplotlib, Jupyter
-   • Full ML pipeline: EDA → feature engineering → model training
-   • Compared multiple models: Linear Regression, Random Forest, XGBoost
-   • Applied unsupervised clustering (K-Means) for zone segmentation
-   • Visualised results with Matplotlib & Seaborn
-
-3. Gym Management System (Full-Stack) — 2023
-   Tech: Python, Flask, SQL, SQLite, HTML, CSS, JavaScript
-   • Database-driven gym platform for admins and members
-   • Role-based access control (admin / member views)
-   • Membership management, attendance tracking, equipment handling
-   • Automated membership expiry logic
-
-SKILLS
-------
-Languages:  Python, SQL, JavaScript, C, C++, Java, HTML/CSS
-Graphics:   OpenGL, PyOpenGL, GLFW
-ML/Data:    scikit-learn, XGBoost, Pandas, NumPy, Matplotlib, Seaborn
-Web:        Flask, HTML, CSS, JavaScript
-Database:   SQLite, MySQL
-Tools:      Git, GitHub, VS Code, Jupyter Notebook, PyCharm, Google Colab
-
-CONTACT
--------
-Email:    khondokarwaysalemustafa@gmail.com
-GitHub:   github.com/waysal-mustafa
-LinkedIn: linkedin.com/in/waysal-mustafa
-Location: Dhaka, Bangladesh
-`;
+const CV_PDF_B64 = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIgL0Y0IDUgMCBSIC9GNSA2IDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQmFzZUZvbnQgL1phcGZEaW5nYmF0cyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0Y0IC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNiAwIG9iago8PAovQmFzZUZvbnQgL1N5bWJvbCAvTmFtZSAvRjUgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago3IDAgb2JqCjw8Ci9Db250ZW50cyAxMSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxMCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKOCAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDEwIDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKOSAwIG9iago8PAovQXV0aG9yIChhbm9ueW1vdXMpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjAzMjcyMTQ4MTErMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjAzMjcyMTQ4MTErMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAodW50aXRsZWQpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKMTAgMCBvYmoKPDwKL0NvdW50IDEgL0tpZHMgWyA3IDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKMTEgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggNDAyMAo+PgpzdHJlYW0KR2F1MEY+QmVnWyZxOVNZXmYtOUJnJ0BfQCJJWjAxSHRzWl9wMCgocDRYVm0+IlxZcUJkSU5IInFzL0hGK1VDXUNEKUc0Ozoqa3Q6UkRGOGwiXD1eW3J0NHIoWnA8aW0nWVYrJExlb3BWNWZDXSxSVTJdWmtsTEtbOU0oJms1TzgsMiQnMGZxLzwoajJKaUxRMSM5YzRRWjEjZEwhXjZJJ0o3QzZtNDxHaWJjXVFQMEhMYDBhJClVIS5UdWM3UmldXGgzJmR0clxZUmdzaF9FSjlWJmsiXjozRGJOZS4xPkIqOEl0YFRfWGBkITFkP2ROLHI/VCQlMjojcypwWkNmYHUpOEQsS2dBJEpZTjQwW2MvaGE0ZzdOZlgqVmA6VmlCTi8jTFg9KSxCNCFEPVNwU1BuUkR1XkFaZTxNTThrcScsUU5IbjlFR0UmIlg9Nzw5SDhdVydQV1g3MUQzK1ljMCQtcSFHaj9jSk1KKDwtaC9WI0U9ZGBQSDpDI1UwU3M4Wipla2ZeQDhzT0pIRUFjZ05ORlhGSj9MLShHTkYpYTs8PCdbWyU3TUVAW285TihvMmM5ZlleUGwtQ1llN25EZzVtQkBVS2lVRydgaDhUSnA1WS5MUSoqZzQhR3FCcWEyVXRrXG5wRzNGbGptJ1lPKTFjNEg9bDsoXm44czcvZSdEW2lUO0RtQlY7TmBibS82VkxYLi5sOF06SyNbNUdAPE5xSnBaT2RGQkcqcyM9M15sdWFJIl9MXipoNSwvU0lmXmo+PVs8WnU0ZWZRcShRLGs/Kio/dC4uPk8vbVZRNzAsPnJcWj9sL0I7SSkzOWlRIS46PHReUi9gOTdaVU9HUCoyKm03M1I8bldCR09DZUBOaVhfa0UtakxwIzU/IidSX1U/RGtfLVRGcDVCUE5ddUFtTVVDXExncjFPSG5mTSc4Rj4vaVkrZWtTMCI7MyJqKmBxYmFjZTpnMzAyOzc7Z1IrWWovUHIlKE8oK0U/bElXK2JCQC9daTk5NyZzIVRaNjIuI2c1NWhGaDBbPXVGMTxLL2E9OTInPXRKLzpxJlkxV2lCJDJaQ0chVDRdcGtaVy8mdUA6VExvT2NMWlMnZSJqJGNlJGJyR0NSK1A3VSEoaTpTZko1NnVhKjNwZy9tc050PV5rVUVdZzQxblxBLTVoKmByZz8yUjRDQzlQUyEoOklVa3AhMEBhIiUwPmlqOjIkPnE5WUg4TWE1QCFrZ25falpHJklXM15OKVJeU11CWjouP3NrczEjdVhLK0giMUduP1IhYSY5W1pFSjEkXGtTVj9YMy40UTpdJUtLLjU2VFlsQkwoKj8mUi07U1UkYlcoS29JQlIlJ3AjMDxgKyg0W01UIy9qTTpZS0JCIjBEamAwXFw8KEJhOmY+VGM2XlF1VmklPTE8Uk8pZmtULzZVLFgvNlYjS0AqOUVLJ3JJIiJlP2RTR1Q+cWNlZDFkb2BGTDluPCZUWU5mZEpqMENgRSNLJz9MaDxsZnE5LltMTSoxMGFZYlFvOmVCcC1LLmQ3QlZiP0JJZU5VMEFHWVc6VmNXYUJsWz8qUF9yQFNBUDx0UjRZIj8rTlo4WTJgTFg2dToqQmxNK0FgWDs7M0pMQGFhJy1UMjUpSnFucF5GLz5qSm9IdE5dNS00KTU+a2gxXzllbk9MZUZfIzEtQlMsaD5QLS9cNnNLV1hcRExyLXU0ailUQSd0KDZAU0NJL0phbiN1Jj9EM05wNkY/Zi8iWlYsKChPL0hMV1VNInRKUGA4Nj5VSHFQVHVTNXJxT00hbkBCcGpVXTs6UGFDaFYnQWYqW1lNW3EyXDQ0VzFTQDxER0E1ZTRZaSZZM3E3TmAkOC80aitRYFUnaURQZVQzajdGNCRVLCxKPV5HXFtLV19aTkk1LGZVV21nMCxXUnBaJ2RraVZVM2FXbD5Pb09XTmJmQWx1NGE1IzpXajdfcCdcK0EpNWpSbShZRjBTRGRjUT9kMCovPlJ0SjstamwmMEB1a1stdCMzIz5VclZubkNBMCloIkc9XjxSc01wUmk1QG5AUkU/WTs0XVdXYEdjaz1tJXRqPVp1cGhHXzc+R2RILUpdWDN1IUM9KmEsNCFdMD1WP3BMMj9kS2UzXl5EWm42ZkddZ2UrbSIucSk/LmxVNGwkWXU6Zm0kTm1SMCtvbTdNOmVzKWlVMG5PN3MpZS5vSG4oSHE/aVMtSHRWIVhUVigmRVQlLjktXEonb08wQWo0UyM0MzskKzk4LilgOGNQazlMRGdgNERHQmlyPm5dWitaWShqWVZAVipUUmpUXDcrTy1HNlVuU2NYc1VWPGZcNEdnQyY1R0E5bk1UYypuVVRGUDZsJDhNJlcycVxhJ2hEUWtlQFY3KlNjP0Yyc1lBN1tXQkdVXmZUUFQsLVttNzY2Qy5QaE0kYmZMJyJYQ1w8PjgvZ1dpNUlfTWpmNi5JNGlQQ2BZLUxUIzoraDZoazY+KWlfOUtMbShmN2smSCV0O1tBbGZHMXBSRi84W25GWSFKWktUUytLREpBYmRuXmlDZSxMZiFbLC8nYU5bLiZDNkw0MFcyNVJZJj48KytYKDVnJ2VsZ1MyRlUkK04yUDw/Ym9SJ0QoVEUsTGpxblk4PW1TZ1ouME9bYXMrZ1w0IyhsIitLW3FEOU5CRVlaXyVpaUFPWWlfQjI2WkUuNVdzNVxROillUTctIik7UWRcIVlhVXJaSGBmI2JmM0hvPT5lcnNnVVw9c2lYcitZK2o6LXFXYSlCaU5TIjFoInN0aTFYJlVaO29RXjFxdThnRV8nIlU9O1gmc3EoX1RRbiFNSzY+ZzMlJSgoU04iVF8tOHIsOCk8bm43Z2VfL2FsZi0tRmVtKUNZVzMvMlhDN28tIWlkUVpNWjVfM2Ynam9KVVReOVBNQ0xhZWI8NClNSjw+WTVaT1FkPjM5YWtwXlZsTDpeXzpAT0tYQlxgRiRnJGRVPio6bFA4NjI6V3VNOmtPLTZjMGE4Ji9WZmJqOjFOV2ctKkIoO2w7Y3NIOHFOc1InTzw0NiZTYFh0JCMwNixjT1Ipa1ArPSFfK2c0SyorTGNJQnRjZz0jZTFqZEkjQGw8IlZiJ3UkLjwpcUQ5KCdXLHRkY2cvTzhJTWMySCQ2Q2tyaUtELStUNjBpTlwhKSRlOmdRVTBGb2xjTW09MWFRRStoYD1HZGNTX2w+b1MjIzU5PlNzLDRLLF1YODdNWlhzJWFZT1ZZLlloJGxERFw4TnJUdTlrXzI0ai9LNWFcI14rXl9sVSh1bmdiLWlHXWRKO0glMTF1XWI9PCVhOjYibDwsYSQ2NyZPaVVaNiQibCRpI0FkUkhKLGVLNjBTU1pGQXRGN2BNZFYsSHE3JSdETGdjW1JBJmpMWCZva0JBPilNVzdHKlZfMmJBIVVkSCoudCpiOEs9Ok5ZYi1HTVVwaStNWCpdU1ErSiFbQmspWSlvSEc+YlBzZnNQSnJ0OzRURXIiRTMwX1NASDFOKF9KS2xFdFxlQi5QZEgsKiUmXDxUJzpfaTJnIV9SZ2hCODo/XiRNRD4iSmgpTV81PylpMl1qWkguamY2LkU0aU4sdVktTDtwOic4SlZGNVtKIj9NYTRKQyNIb2E+RWBcSi9tTlNNVFIianRAdDIrRC8rZGhCZiNfcyNCKXBOJ2ooamRBJTgtNCUuXkZxND1fa1hUbCdBVWoybT9vRmY8RzlUMFVqbi4/QVBvQzNrYlo6TkRQUkpFUWVJaFlRM0MrXFM8Zys6TjZFQVgiNHNOUD1vP0hcVWF0QE0hVjhLN0xZSjxFSkVLNEFRSz11KWIoZFlnRWcqVSNNaWdhWDZdNFciNzs7KCw6ZjciXjFkMzBbPkhbQTpdWTwiLCM7OT9sZyVNTVxTPD5MJmJqam4nO01kTzU3W0dEMkRHdHRxWk0zUl0zSClESVtTRTZGPkl0XiNNbWRdXUZeSS8kTllUWlZuPy4rOk8/Zkg3Wiw7VGpJTlxSTjUycW0sSVl1XD5zTUtkVzR1KyxJP2QpdTxvOENwP0NNViFlJmZPTTkkK1BRUDFKPCxYMVtcYl07JmgvTW80MGI/QzluQ3A8YzcrTTJSdGJMN3FtYSIzYmUrLkVqbjVkJUQpaEFEa0JMOnJvKGY2Wk0vNVhyOS5jM0duLCRMT2khKyh0NjshRl1VZl85LmFUKVBbVUlGanJFLzdSMiQ6JzNcRWpAMEJ1InNAZ1w2JFMqMSNQZDYwVERiMVJRN2ZuOTk1OV1MKzAlXjhmVVc1W1FfQGpxbihfbD1jPkpXaV9NQ2c/Q0EiUCcoV2s7ODJnKjYyUTc0aU10aD0+YWRLRjUjOigvbidaYyooPDlRJ1xsXiEzMGxSN0w2PUJJMj9daWtKNVlLKmNfLC0rJ0kiJW8sXnA1TjhDIXNhKjlUVDJiQ2dkbz9paV1LUFc8QlInUmg5SWVSNWhXaWtmNS09VEMiTkpSW11OMEVJMFE0RWIrYWh0V1gmNlpIUD9YNSlORTopailiLHRxLT5cN2B0PlsxOFpwW1I+aE8hQ25QUD5ETyhxaEI3blhIJywvUmdyK11TQ29RXjwhcmdDaUxlblxxPlxvKnQjVEJjYmtnMGx1PWw7OkJVbmtxa0hjZmVIL28jUXBgUFpeNy1xOWVkKVVKY19TSDRsWDpmYlgtSEFbV0w/MDFLREY1IzooL2w8IyNbPywsTV09JzM9TS07WGwtaVI6XWNuamg3NEEtRGlJPDZlMldnMEw8Wl9VYVo9JVdAMipqY0BfQUhZQDglZWs8VTdbXFBIOllkLkNyOlRAP29zXE1OUilTWGNNPnVYKnFpPidzO1ctbCc1X21UYTtVLkBbUT1ibWdZNGBtVk9YLkQ5KSZhKDhSQCcmLUlpYSg9Z1s1NzFpOXAnLzhaX2VmaCszdU1RJHE6cSxmbVo7cW4oVWxiR3RyciVcV3I4a3JzIkUjdC9BQmBrJWNGQSV0cjpubThjbTklcjl0OlllNiFJSEcxXidFLHNOUFlHLmJqT0pJWT0haF9UP0w1WVVgT2pwRShOR01tVEZcVWFnUGE8XUJoakhgZzksbStSZ3FEaWVAXDMhJW9ONFwlcCtvVWEnPmZZIjVJTWg1ZSVVK2FzUDZYOVliJT8qaGJlS2tiPSw3ZG9RJCFCa2FhMzcnZFtvbkJIY2loUEk5UUhwP2I0Vi1JVVozb0oxN1NJJ2wpLWc0TjlGSTQ9b1xrJDUzRSJCbjdWbENMKzxGbjtVWkUhJnRKN25INnJvTnUqZVpnZDI7ZnJYQnBeVG5DQDoyUTNeKmVxKHE5SDlgI0A7Y2VHQmRjbVxiQVtmSFlXcy9yI147ZidlVH4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTIKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMzIgMDAwMDAgbiAKMDAwMDAwMDIzOSAwMDAwMCBuIAowMDAwMDAwMzUxIDAwMDAwIG4gCjAwMDAwMDA0MzQgMDAwMDAgbiAKMDAwMDAwMDU0OSAwMDAwMCBuIAowMDAwMDAwNjI2IDAwMDAwIG4gCjAwMDAwMDA4MzEgMDAwMDAgbiAKMDAwMDAwMDkwMCAwMDAwMCBuIAowMDAwMDAxMTYxIDAwMDAwIG4gCjAwMDAwMDEyMjEgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8MGRlZTQyZjhmYmNmNDI1MmEzMmNlNjk5NjRkMTNjMjQ+PDBkZWU0MmY4ZmJjZjQyNTJhMzJjZTY5OTY0ZDEzYzI0Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA5IDAgUgovUm9vdCA4IDAgUgovU2l6ZSAxMgo+PgpzdGFydHhyZWYKNTMzMwolJUVPRgo=";
+function downloadCV() {
+  const byteChars = atob(CV_PDF_B64);
+  const byteNums = new Array(byteChars.length);
+  for (let i = 0; i < byteChars.length; i++) byteNums[i] = byteChars.charCodeAt(i);
+  const blob = new Blob([new Uint8Array(byteNums)], {type:'application/pdf'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'Waysal_Mustafa_CV.pdf'; a.click();
+  URL.revokeObjectURL(url);
+}
 
 /* ════════════════════════════════
    APP
