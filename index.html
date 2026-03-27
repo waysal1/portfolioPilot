@@ -370,7 +370,7 @@ function About({ dark }) {
               I love getting into the mechanics of how things work — whether that's how a graphics pipeline renders a scene, how a model learns patterns from data, or how a well-designed schema makes everything else easier. I'm actively looking for opportunities where I can keep growing and contribute meaningfully.
             </p>
             <p className={`mt-4 leading-relaxed ${sub}`}>
-              Outside of code: football (the real one ⚽), experimenting with game mechanics, and occasionally getting lost in rabbit holes about computer architecture.
+              Outside of code: E-sports, experimenting with game mechanics, and occasionally getting lost in rabbit holes about computer architecture.
             </p>
 
             {/* Experience */}
@@ -401,8 +401,8 @@ function About({ dark }) {
             <div className={`rounded-2xl p-6 border ${card} flex items-center gap-4`}>
               <div className="text-4xl">📄</div>
               <div className="flex-1">
-                <p className={`syne font-bold ${tc}`}>Waysal_Mustafa_CV.txt</p>
-                <p className={`text-xs mt-0.5 ${sub}`}>Updated 2025 · CS Student @ BRAC</p>
+                <p className={`syne font-bold ${tc}`}>Waysal_Mustafa_CV.pdf</p>
+                <p className={`text-xs mt-0.5 ${sub}`}>Updated 2026 · CS Student @ BRAC</p>
               </div>
               <a href="#" className="btn btn-y btn-sm"
                 onClick={e => { e.preventDefault(); downloadCV(); }}>
@@ -749,7 +749,7 @@ function Contact({ dark }) {
                       onChange={e => handleChange('budget', e.target.value)}
                       style={{background:'transparent'}}>
                       <option value="" className={dark?'bg-[#141414]':'bg-white'}>Select range…</option>
-                      {['< $5k','$5k – $15k','$15k – $50k','$50k+','Full-time role'].map(o => (
+                      {['Freelance','Part-time role','Full-time role'].map(o => (
                         <option key={o} value={o} className={dark?'bg-[#141414]':'bg-white'}>{o}</option>
                       ))}
                     </select>
@@ -822,7 +822,6 @@ function Footer({ dark, openGuide }) {
           ))}
           <button className={`${tc} no-underline hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer text-sm`}
             onClick={openGuide}>
-            📚 Deploy Guide
           </button>
         </div>
         <span className="text-xs">© {new Date().getFullYear()} Khondokar Waysal E Mustafa. Built with React + Vite.</span>
