@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Khondokar Waysal E Mustafa — Full-Stack Developer</title>
+<title>Khondokar Waysal E Mustafa — Developer & CS Student</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
@@ -116,73 +116,61 @@ const { useState, useEffect, useRef, useCallback } = React;
 ════════════════════════════════ */
 const PROJECTS = [
   {
-    id:1, icon:'⚡', color:'#e8ff47',
-    title:'NeuralDash',
-    tag:'AI · SaaS Dashboard',
+    id:1, icon:'🏙️', color:'#e8ff47',
+    title:'Interactive City Builder',
+    tag:'Graphics · OpenGL · Python',
     year:'2024',
-    desc:'Real-time ML analytics platform for monitoring model drift, data quality, and pipeline health across distributed ML systems. Serves 200+ data science teams.',
-    longDesc:'NeuralDash is a production-grade SaaS platform that I architected and built solo over 6 months. It ingests model telemetry via a WebSocket pipeline, runs statistical drift detection in a Python worker, and surfaces insights through a React dashboard backed by a PostgreSQL time-series store. The system handles ~2M events/day with <200ms p99 latency.',
-    tech:['React','TypeScript','FastAPI','PostgreSQL','WebSockets','AWS ECS'],
-    github:'https://github.com',
-    live:'https://vercel.app',
-    metrics:'2M+ events/day · 200ms p99 · 200 teams',
-  },
-  {
-    id:2, icon:'🛍️', color:'#ff6b35',
-    title:'Arcadia Shop',
-    tag:'E-commerce · Next.js',
-    year:'2024',
-    desc:'Full-stack e-commerce platform with 3D product previews using Three.js, AI-powered size recommendations, and a headless Shopify backend.',
-    longDesc:'Arcadia reimagines online shopping with immersive 3D product rendering via Three.js/WebGL, a recommendation engine built with collaborative filtering, and a blazing-fast storefront powered by Next.js ISR + Shopify Storefront API. Achieved a 38% increase in conversion rate for the client vs. their previous Shopify theme.',
-    tech:['Next.js','Three.js','TypeScript','Shopify API','Tailwind','Vercel'],
-    github:'https://github.com',
-    live:'https://vercel.app',
-    metrics:'+38% conversion · <1.2s LCP · 99 Lighthouse',
-  },
-  {
-    id:3, icon:'💓', color:'#a78bfa',
-    title:'Pulse Health',
-    tag:'Mobile · React Native',
-    year:'2023',
-    desc:'Cross-platform health tracking app that aggregates wearable data from Apple Health & Fitbit, applies ML to surface personalized recovery and sleep insights.',
-    longDesc:'Pulse is a React Native app with a Node.js/Express backend that normalises data across Apple HealthKit, Google Fit, and Fitbit APIs. A lightweight LSTM model runs inference on a serverless Lambda to generate weekly wellness scores. The app has 4,200+ downloads on the App Store with a 4.7-star rating.',
-    tech:['React Native','Expo','Node.js','AWS Lambda','Python','TensorFlow.js'],
-    github:'https://github.com',
-    live:'https://apps.apple.com',
-    metrics:'4,200+ downloads · 4.7★ App Store',
-  },
-  {
-    id:4, icon:'🤖', color:'#34d399',
-    title:'Codex CLI',
-    tag:'Dev Tool · Node.js · OSS',
-    year:'2023',
-    desc:'Open-source AI-powered CLI that scaffolds React/Next.js components, generates test suites from JSDoc comments, and automates commit message writing.',
-    longDesc:'Codex CLI is my most popular open-source project with 1.4k GitHub stars. It wraps the OpenAI API in an ergonomic command-line interface, letting developers scaffold full CRUD feature slices, generate Vitest/Jest test files, and craft Conventional Commit messages—all from a single npx command. Built with TypeScript, Commander.js, and Ink.',
-    tech:['Node.js','TypeScript','OpenAI API','Commander.js','Ink','npm'],
+    desc:'Real-time 3D city builder and simulation system using the OpenGL graphics pipeline. Features procedural generation, interactive building placement, and dynamic traffic simulation.',
+    longDesc:'This project is a real-time 3D city builder and simulation system developed using the OpenGL graphics pipeline in Python. It combines procedural generation, interactive building placement, and dynamic traffic simulation into a fully explorable environment. The application allows users to create, modify, and interact with a procedurally generated city while navigating through it using both orbit and free-fly camera systems. The rendering engine handles terrain generation, road networks, building meshes, and vehicle pathing — all updated in real time.',
+    tech:['Python','OpenGL','PyOpenGL','GLFW','NumPy','Procedural Generation'],
     github:'https://github.com',
     live:null,
-    metrics:'1.4k GitHub stars · 850 weekly downloads',
+    metrics:'Real-time 3D rendering · Orbit & free-fly camera · Dynamic traffic sim',
+  },
+  {
+    id:2, icon:'🤖', color:'#ff6b35',
+    title:'Food Delivery Time Prediction',
+    tag:'Machine Learning · Data Science',
+    year:'2024',
+    desc:'Built and evaluated multiple ML models to analyze and predict food delivery times. Covers the full pipeline — EDA, feature engineering, supervised & unsupervised model comparison.',
+    longDesc:'This project focuses on building and evaluating multiple machine learning models to analyze and predict food delivery times using a structured dataset. The workflow covers the complete ML pipeline — from exploratory data analysis (EDA) and feature engineering to model comparison and evaluation using both supervised and unsupervised techniques. Models explored include Linear Regression, Random Forest, XGBoost, and K-Means clustering for delivery zone segmentation. Key insights were surfaced through data visualizations built with Matplotlib and Seaborn.',
+    tech:['Python','scikit-learn','XGBoost','Pandas','Matplotlib','Seaborn','Jupyter'],
+    github:'https://github.com',
+    live:null,
+    metrics:'Multiple ML models · Full EDA pipeline · Supervised & unsupervised',
+  },
+  {
+    id:3, icon:'💪', color:'#34d399',
+    title:'Gym Management System',
+    tag:'Full-Stack · Database Application',
+    year:'2023',
+    desc:'Full-stack gym management platform handling admin operations and member interactions through a centralized SQL-backed system — memberships, attendance, and equipment management.',
+    longDesc:'This project is a full-stack gym management system designed to handle both administrative operations and member interactions through a centralized database-driven platform. It integrates a SQL-based backend with a user-friendly frontend interface to streamline gym operations such as membership management, attendance tracking, and equipment handling. The system features role-based access control separating admin and member views, automated membership expiry logic, and a clean dashboard for monitoring gym metrics in real time.',
+    tech:['Python','SQL','SQLite','HTML','CSS','JavaScript','Flask'],
+    github:'https://github.com',
+    live:null,
+    metrics:'Role-based access · Membership & attendance tracking · Equipment mgmt',
   },
 ];
 
 const SKILLS = [
-  { name:'React / Next.js',  pct:93 },
-  { name:'TypeScript',       pct:88 },
-  { name:'Node.js / Express',pct:82 },
-  { name:'Tailwind CSS',     pct:96 },
-  { name:'Python / FastAPI', pct:74 },
-  { name:'PostgreSQL',       pct:79 },
-  { name:'AWS / Docker',     pct:71 },
-  { name:'React Native',     pct:76 },
+  { name:'Python',              pct:85 },
+  { name:'OpenGL / Graphics',   pct:75 },
+  { name:'Machine Learning',    pct:78 },
+  { name:'SQL / Databases',     pct:80 },
+  { name:'JavaScript / HTML / CSS', pct:72 },
+  { name:'Data Analysis (Pandas, NumPy)', pct:80 },
+  { name:'C / C++',             pct:68 },
+  { name:'Java',                pct:65 },
 ];
 
-const TOOLS = ['Figma','VS Code','Docker','AWS','Vercel','GitHub','Postman','Linear','Notion','Turborepo'];
-const MARQUEE = ['React','TypeScript','Next.js','Tailwind CSS','Node.js','Python','PostgreSQL','GraphQL','AWS','Docker','React Native','Figma','Vite','Vitest'];
+const TOOLS = ['VS Code','Jupyter Notebook','Git','GitHub','PyCharm','MySQL','SQLite','Matplotlib','scikit-learn','Google Colab'];
+const MARQUEE = ['Python','OpenGL','Machine Learning','SQL','JavaScript','C++','Java','NumPy','Pandas','scikit-learn','Flask','Git','Jupyter','Figma'];
 
 const EXPERIENCE = [
-  { role:'Senior Frontend Engineer', company:'Veritas AI', period:'Jan 2023 – Present', desc:'Lead UI architecture for a YC-backed ML ops platform. Built the real-time inference monitoring dashboard used by 150+ enterprise clients.' },
-  { role:'Full-Stack Developer', company:'Freelance', period:'Jun 2021 – Dec 2022', desc:'Delivered 20+ client projects: SaaS dashboards, e-commerce stores, and internal tools. Stack ranged from Next.js to Django REST.' },
-  { role:'Frontend Intern', company:'Pixel Labs', period:'Jan 2021 – May 2021', desc:'Shipped new onboarding flow that reduced time-to-activation by 22%. Built using React, Framer Motion, and Storybook.' },
+  { role:'B.Sc. in Computer Science & Engineering', company:'BRAC University', period:'Summer 2023 – Present (Year 3)', desc:'Currently in my third year studying CSE. Courses include Data Structures, Algorithms, Database Systems, Computer Graphics, Machine Learning, and Software Engineering.' },
+  { role:'City Builder Simulation', company:'Academic Project', period:'2024', desc:'Built a fully interactive 3D city builder using OpenGL and Python — featuring procedural generation, dynamic traffic simulation, and dual camera modes.' },
+  { role:'Gym Management System', company:'Academic Project', period:'2023', desc:'Developed a full-stack database-driven gym management platform with role-based access, membership tracking, and attendance management using SQL and Flask.' },
 ];
 
 /* ════════════════════════════════
@@ -231,7 +219,7 @@ function Navbar({ dark, setDark }) {
     <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${bg}`}>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#home" className={`syne font-extrabold text-[1.15rem] tracking-tight no-underline ${tc}`}>
-          alex.<span style={{color:'var(--a)'}}>dev</span>
+          waysal.<span style={{color:'var(--a)'}}>dev</span>
         </a>
 
         <ul className={`hidden md:flex gap-8 text-sm font-medium ${tc} list-none`}>
@@ -276,17 +264,17 @@ function Hero({ dark }) {
           <span className="tag afu d1">Open to opportunities · 2025</span>
 
           <h1 className={`syne text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[1.04] mt-5 afu d2 ${tc}`}>
-            Khondokar Waysal E Mustafa —<br/>
-            <span style={{color:'var(--a)'}}>Full-Stack</span><br/>
-            Developer.
+            Hi, I'm<br/>
+            <span style={{color:'var(--a)'}}>Waysal</span><br/>
+            Mustafa.
           </h1>
 
           <p className={`mt-6 text-lg leading-relaxed max-w-lg afu d3 ${sub}`}>
-            I build performant, accessible web products that sit at the intersection of clean engineering and thoughtful design. Based in Dhaka, Bangladesh·
+            CS undergrad at BRAC University · passionate about graphics programming, machine learning, and building full-stack systems. Based in Dhaka, Bangladesh 🇧🇩
           </p>
 
           <div className="mt-3 flex flex-wrap gap-2 afu d3">
-            {['React','Next.js','TypeScript','Node.js','Python'].map(t => (
+            {['Python','OpenGL','Machine Learning','SQL','JavaScript'].map(t => (
               <span key={t} className="text-xs font-semibold px-3 py-1 rounded-full"
                 style={{background:dark?'rgba(255,255,255,.07)':'rgba(0,0,0,.06)', color:dark?'rgba(255,255,255,.6)':'rgba(0,0,0,.55)'}}>
                 {t}
@@ -301,7 +289,7 @@ function Hero({ dark }) {
               onClick={e => { e.preventDefault();
                 const blob = new Blob([CV_TEXT], {type:'text/plain'});
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a'); a.href=url; a.download='Khondokar_Waysal_E_Mustafa.txt'; a.click();
+                const a = document.createElement('a'); a.href=url; a.download='Waysal_Mustafa_CV.txt'; a.click();
               }}>
               ↓ Download CV
             </a>
@@ -309,7 +297,7 @@ function Hero({ dark }) {
 
           {/* Social links */}
           <div className="mt-8 flex gap-5 afu d5">
-            {[['GitHub','https://github.com'],['LinkedIn','https://linkedin.com'],['Twitter','https://twitter.com'],['Email','mailto:alex@rivera.dev']].map(([l,h]) => (
+            {[['GitHub','https://github.com'],['LinkedIn','https://linkedin.com'],['Email','mailto:khondokarwaysalemustafa@gmail.com']].map(([l,h]) => (
               <a key={l} href={h} target="_blank" rel="noreferrer"
                 className={`text-xs font-bold tracking-widest uppercase no-underline transition-opacity hover:opacity-100 ${dark?'text-white/30':'text-black/30'}`}>
                 {l}
@@ -323,11 +311,11 @@ function Hero({ dark }) {
           <div className={`relative rounded-3xl p-8 w-full max-w-xs border ${dark?'bg-white/4 border-white/8':'bg-white border-black/8'}`}
             style={{boxShadow:dark?'0 0 60px rgba(232,255,71,.07)':'0 8px 40px rgba(0,0,0,.08)'}}>
             <div className="text-6xl mb-4">👾</div>
-            <p className={`syne text-xl font-bold ${dark?'text-white':'text-[#0a0a0a]'}`}>Khondokar Waysal E Mustafa</p>
-            <p className={`text-sm mt-1 ${dark?'text-white/50':'text-black/45'}`}>Full-Stack Developer</p>
-            <p className={`text-sm mt-0.5 ${dark?'text-white/35':'text-black/30'}`}>Dhaka, Bangladesh </p>
+            <p className={`syne text-xl font-bold ${dark?'text-white':'text-[#0a0a0a]'}`}>Waysal E Mustafa</p>
+            <p className={`text-sm mt-1 ${dark?'text-white/50':'text-black/45'}`}>CS Student & Developer</p>
+            <p className={`text-sm mt-0.5 ${dark?'text-white/35':'text-black/30'}`}>Dhaka, Bangladesh 🇧🇩</p>
             <div className="mt-5 flex flex-col gap-2">
-              {[['50+ Projects Shipped','🚀'],['200+ GitHub Contributions / yr','⭐'],['Available from July 2025','✅']].map(([t,e]) => (
+              {[['3 Projects Shipped','🚀'],['BRAC University · Year 3','🎓'],['Open to Work','✅']].map(([t,e]) => (
                 <div key={t} className={`flex items-center gap-2 text-xs ${dark?'text-white/55':'text-black/50'}`}>
                   <span>{e}</span><span>{t}</span>
                 </div>
@@ -376,17 +364,17 @@ function About({ dark }) {
           {/* Text */}
           <div className="reveal" ref={useReveal(100)}>
             <h2 className={`syne text-4xl md:text-[2.6rem] font-bold leading-tight ${tc}`}>
-              I care about the 1% details<br/>
-              <em>that make users stay.</em>
+              Building real things,<br/>
+              <em>while still learning.</em>
             </h2>
             <p className={`mt-5 leading-relaxed ${sub}`}>
-              I'm Khondokar Waysal E Mustafa, a full-stack developer with a product mindset. I've shipped apps used by tens of thousands of people, from early-stage startups to growth-stage SaaS companies. My sweet spot: React front ends paired with clean Node.js or Python backends.
+              I'm Khondokar Waysal E Mustafa, a Computer Science & Engineering student at BRAC University (enrolled Summer 2023, currently Year 3). I'm based in Dhaka, Bangladesh and genuinely excited about what I'm building — from real-time 3D graphics with OpenGL to machine learning pipelines and database-backed full-stack apps.
             </p>
             <p className={`mt-4 leading-relaxed ${sub}`}>
-            I care about performance, accessibility, and developer experience — in that order.
+              I love getting into the mechanics of how things work — whether that's how a graphics pipeline renders a scene, how a model learns patterns from data, or how a well-designed schema makes everything else easier. I'm actively looking for opportunities where I can keep growing and contribute meaningfully.
             </p>
             <p className={`mt-4 leading-relaxed ${sub}`}>
-              Outside work: long-distance cycling, generative art experiments in p5.js, and brewing questionable espresso.
+              Outside of code: football (the real one ⚽), experimenting with game mechanics, and occasionally getting lost in rabbit holes about computer architecture.
             </p>
 
             {/* Experience */}
@@ -404,7 +392,7 @@ function About({ dark }) {
           {/* Stats + CV */}
           <div className="flex flex-col gap-5 reveal" ref={useReveal(200)}>
             <div className="grid grid-cols-2 gap-4">
-              {[['50+','🚀','Projects shipped'],['30+','🤝','Happy clients'],['3+','⏳','Years exp'],['1.4k','⭐','GitHub stars']].map(([v,e,l]) => (
+              {[['3','🚀','Projects built'],['Year 3','🎓','BRAC University'],['2023','📅','Enrolled Summer'],['Open','✅','To work']].map(([v,e,l]) => (
                 <div key={l} className={`rounded-2xl p-5 border ${card} transition-all duration-250 hover:scale-[1.03] cursor-default`}>
                   <span className="text-3xl">{e}</span>
                   <div className={`syne text-2xl font-extrabold mt-2`} style={{color:'var(--a)'}}>{v}</div>
@@ -417,14 +405,14 @@ function About({ dark }) {
             <div className={`rounded-2xl p-6 border ${card} flex items-center gap-4`}>
               <div className="text-4xl">📄</div>
               <div className="flex-1">
-                <p className={`syne font-bold ${tc}`}>Khondokar_Waysal_E_Mustafa.pdf</p>
-                <p className={`text-xs mt-0.5 ${sub}`}>Updated March 2026 · 1 page</p>
+                <p className={`syne font-bold ${tc}`}>Waysal_Mustafa_CV.txt</p>
+                <p className={`text-xs mt-0.5 ${sub}`}>Updated 2025 · CS Student @ BRAC</p>
               </div>
               <a href="#" className="btn btn-y btn-sm"
                 onClick={e => { e.preventDefault();
                   const blob = new Blob([CV_TEXT], {type:'text/plain'});
                   const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a'); a.href=url; a.download='Alex_Rivera_CV.txt'; a.click();
+                  const a = document.createElement('a'); a.href=url; a.download='Waysal_Mustafa_CV.txt'; a.click();
                 }}>
                 ↓ Download
               </a>
@@ -694,10 +682,10 @@ function Contact({ dark }) {
           {/* Left — info */}
           <div className="md:col-span-2 flex flex-col gap-7 reveal" ref={useReveal(100)}>
             {[
-              { icon:'📧', label:'Email', val:'alex@rivera.dev', href:'mailto:alex@rivera.dev' },
-              { icon:'💼', label:'LinkedIn', val:'/in/alexrivera-dev', href:'https://linkedin.com' },
-              { icon:'🐙', label:'GitHub', val:'@alex-rivera', href:'https://github.com' },
-              { icon:'🐦', label:'Twitter / X', val:'@alexriveradev', href:'https://twitter.com' },
+              { icon:'📧', label:'Email', val:'khondokarwaysalemustafa@gmail.com', href:'mailto:khondokarwaysalemustafa@gmail.com' },
+              { icon:'💼', label:'LinkedIn', val:'/in/waysal-mustafa', href:'https://linkedin.com' },
+              { icon:'🐙', label:'GitHub', val:'@waysal-mustafa', href:'https://github.com' },
+              { icon:'🏫', label:'University', val:'BRAC University · CSE · Year 3', href:'https://www.bracu.ac.bd' },
             ].map(({ icon, label, val, href }) => (
               <a key={label} href={href} target="_blank" rel="noreferrer"
                 className={`flex items-center gap-3 no-underline group ${tc}`}>
@@ -711,7 +699,7 @@ function Contact({ dark }) {
 
             <div className={`mt-4 rounded-2xl p-5 border ${dark?'bg-white/4 border-white/8':'bg-white border-black/7'}`}>
               <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{color:'var(--a)'}}>Currently Available</p>
-              <p className={`text-sm ${sub}`}>Accepting projects starting <strong className={tc}>July 2025</strong>. Prefer long-term engagements but happy to discuss.</p>
+              <p className={`text-sm ${sub}`}>Open to internships, part-time roles, and freelance projects. Happy to collaborate on interesting problems — let's connect!</p>
             </div>
           </div>
 
@@ -721,7 +709,7 @@ function Contact({ dark }) {
               <div className="toast flex flex-col items-center justify-center text-center py-16 gap-4">
                 <span className="text-6xl">🎉</span>
                 <h3 className={`syne text-2xl font-bold ${tc}`}>Message sent!</h3>
-                <p className={sub}>Thanks for reaching out. I'll get back to you within 24 hours.</p>
+                <p className={sub}>Thanks for reaching out, Waysal will get back to you soon!</p>
                 <button className="btn btn-y mt-2" onClick={() => setStatus('idle')}>Send another →</button>
               </div>
             ) : (
@@ -803,7 +791,7 @@ function Contact({ dark }) {
                     ) : 'Send Message →'}
                   </button>
                   <p className={`text-xs ${sub}`}>
-                    Or email directly at <a href="mailto:alex@rivera.dev" style={{color:'var(--a)'}}>alex@rivera.dev</a>
+                    Or email directly at <a href="mailto:khondokarwaysalemustafa@gmail.com" style={{color:'var(--a)'}}>khondokarwaysalemustafa@gmail.com</a>
                   </p>
                 </div>
 
@@ -951,7 +939,7 @@ Install Command: npm install`}</Code>
             </Step>
 
             <Step n="7" title="Set up a custom domain (optional)">
-              <p>In your project dashboard go to <strong>Settings → Domains</strong> → add your domain (e.g. <code className="font-mono text-xs">Waysal</code>). Vercel provides free TLS automatically.</p>
+              <p>In your project dashboard go to <strong>Settings → Domains</strong> → add your domain (e.g. <code className="font-mono text-xs">alexrivera.dev</code>). Vercel provides free TLS automatically.</p>
             </Step>
 
             <Step n="8" title="Continuous deployment (automatic!)">
@@ -979,11 +967,11 @@ function Footer({ dark, openGuide }) {
     <footer className={`border-t py-10 ${bg}`}>
       <div className={`max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-5 text-sm ${tc}`}>
         <span className="syne font-extrabold text-base">
-          Waysal_Portfolio<span style={{color:'var(--a)'}}></span>
+          waysal.<span style={{color:'var(--a)'}}>dev</span>
         </span>
         <div className="flex flex-wrap justify-center gap-6">
-          {['GitHub','LinkedIn','Twitter','Email'].map(s => (
-            <a key={s} href={s==='Email'?'mailto:khondokarwaysalemustafa@gmail.com':'#'}
+          {[['GitHub','https://github.com'],['LinkedIn','https://linkedin.com'],['Email','mailto:khondokarwaysalemustafa@gmail.com']].map(([s,h]) => (
+            <a key={s} href={h} target="_blank" rel="noreferrer"
               className={`${tc} no-underline hover:opacity-80 transition-opacity`}>{s}</a>
           ))}
           <button className={`${tc} no-underline hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer text-sm`}
@@ -1000,57 +988,71 @@ function Footer({ dark, openGuide }) {
 /* ════════════════════════════════
    CV TEXT
 ════════════════════════════════ */
-const CV_TEXT = `Khondokar Waysal E Mustafa — Full-Stack Developer
+const CV_TEXT = `KHONDOKAR WAYSAL E MUSTAFA
 ===================================
-📍 Dhaka, Bangladesh  |  📧 khondokarwaysalemustafa@gmail.com  | 
-GitHub: @waysal1  |  LinkedIn: /in/khondokar-waysal-e-mustafa-802297210/
+📍 Dhaka, Bangladesh
+📧 khondokarwaysalemustafa@gmail.com
+🎓 BRAC University — B.Sc. Computer Science & Engineering
 
 SUMMARY
 -------
-Full-stack developer with 3+ years of experience building production-grade
-web applications. Specialize in React/Next.js front ends, Node.js/Python
-back ends, and cloud infrastructure (AWS). Shipped 50+ projects across
-SaaS, e-commerce, and mobile domains.
-
-EXPERIENCE
-----------
-Senior Frontend Engineer — Veritas AI (Jan 2023 – Present)
-• Led UI architecture for YC-backed ML ops platform
-• Built real-time inference monitoring dashboard (WebSockets + React)
-• Reduced bundle size by 42% through code-splitting and tree-shaking
-
-Full-Stack Developer — Freelance (Jun 2021 – Dec 2022)
-• Delivered 20+ client projects; $0–$50k budget range
-• Stack: Next.js, Django, PostgreSQL, AWS, Stripe, Shopify
-
-Frontend Intern — Pixel Labs (Jan – May 2021)
-• New onboarding flow reduced time-to-activation by 22%
-• Built with React, Framer Motion, Storybook
-
-SELECTED PROJECTS
------------------
-NeuralDash — AI SaaS dashboard (2024)
-  React · FastAPI · PostgreSQL · AWS ECS · 2M events/day
-
-Arcadia Shop — E-commerce platform (2024)
-  Next.js · Three.js · Shopify API · +38% conversion
-
-Pulse Health — Mobile app (2023)
-  React Native · Node.js · AWS Lambda · 4,200+ downloads · 4.7★
-
-Codex CLI — OSS dev tool (2023)
-  Node.js · TypeScript · OpenAI API · 1.4k GitHub stars
-
-SKILLS
-------
-React/Next.js · TypeScript · Node.js · Python/FastAPI
-Tailwind CSS · PostgreSQL · MongoDB · AWS · Docker
-React Native · GraphQL · Git · Figma
+Third-year CSE student at BRAC University (enrolled Summer 2023)
+with hands-on experience in graphics programming (OpenGL), machine
+learning pipelines, and full-stack database applications. Open to
+internships, part-time roles, and collaborative projects.
 
 EDUCATION
 ---------
-B.S. Computer Science — Brac University (2023–)
-GPA: 3.61· Research Topics: "ML-Driver Drowsiness Detection"
+B.Sc. in Computer Science & Engineering
+BRAC University, Dhaka, Bangladesh
+Enrolled: Summer 2023 | Status: Year 3 (Ongoing)
+
+Relevant Coursework:
+• Data Structures & Algorithms
+• Computer Graphics (OpenGL)
+• Database Systems
+• Machine Learning
+• Software Engineering
+• Object-Oriented Programming
+
+PROJECTS
+--------
+1. Interactive City Builder & Simulation (OpenGL) — 2024
+   Tech: Python, PyOpenGL, GLFW, NumPy
+   • Real-time 3D city builder using the OpenGL graphics pipeline
+   • Procedural terrain & building generation
+   • Dynamic traffic simulation with pathfinding
+   • Dual camera system: orbit mode & free-fly mode
+
+2. Food Delivery Time Prediction (Machine Learning) — 2024
+   Tech: Python, scikit-learn, XGBoost, Pandas, Matplotlib, Jupyter
+   • Full ML pipeline: EDA → feature engineering → model training
+   • Compared multiple models: Linear Regression, Random Forest, XGBoost
+   • Applied unsupervised clustering (K-Means) for zone segmentation
+   • Visualised results with Matplotlib & Seaborn
+
+3. Gym Management System (Full-Stack) — 2023
+   Tech: Python, Flask, SQL, SQLite, HTML, CSS, JavaScript
+   • Database-driven gym platform for admins and members
+   • Role-based access control (admin / member views)
+   • Membership management, attendance tracking, equipment handling
+   • Automated membership expiry logic
+
+SKILLS
+------
+Languages:  Python, SQL, JavaScript, C, C++, Java, HTML/CSS
+Graphics:   OpenGL, PyOpenGL, GLFW
+ML/Data:    scikit-learn, XGBoost, Pandas, NumPy, Matplotlib, Seaborn
+Web:        Flask, HTML, CSS, JavaScript
+Database:   SQLite, MySQL
+Tools:      Git, GitHub, VS Code, Jupyter Notebook, PyCharm, Google Colab
+
+CONTACT
+-------
+Email:    khondokarwaysalemustafa@gmail.com
+GitHub:   github.com/waysal-mustafa
+LinkedIn: linkedin.com/in/waysal-mustafa
+Location: Dhaka, Bangladesh
 `;
 
 /* ════════════════════════════════
