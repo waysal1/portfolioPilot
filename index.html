@@ -769,7 +769,7 @@ function Contact({ dark }) {
                       onChange={e => handleChange('budget', e.target.value)}
                       style={{background:'transparent'}}>
                       <option value="" className={dark?'bg-[#141414]':'bg-white'}>Select range…</option>
-                      {['< $5k','$5k – $15k','$15k – $50k','$50k+','Full-time role'].map(o => (
+                      {['Internship','Part-time role','Full-time role'].map(o => (
                         <option key={o} value={o} className={dark?'bg-[#141414]':'bg-white'}>{o}</option>
                       ))}
                     </select>
@@ -819,153 +819,6 @@ function Contact({ dark }) {
   );
 }
 
-/* ════════════════════════════════
-   GITHUB + VERCEL GUIDE — Steps 7 & 8
-════════════════════════════════ */
-function GuideModal({ dark, onClose }) {
-  const [tab, setTab] = useState('github');
-  const tc = dark ? 'text-white' : 'text-[#0a0a0a]';
-  const sub = dark ? 'text-white/60' : 'text-black/55';
-  const bg = dark ? 'bg-[#0f0f0f]' : 'bg-white';
-  const codeBg = dark ? 'bg-[#1a1a1a] text-[#e8ff47]' : 'bg-[#f0f0eb] text-[#0a0a0a]';
-
-  useEffect(() => {
-    const fn = e => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', fn);
-    return () => window.removeEventListener('keydown', fn);
-  }, []);
-
-  const Code = ({ children }) => (
-    <code className={`block font-mono text-sm rounded-xl px-5 py-3.5 my-2 select-all overflow-x-auto whitespace-pre ${codeBg}`}>
-      {children}
-    </code>
-  );
-
-  const Step = ({ n, title, children }) => (
-    <div className="flex gap-4 mt-6">
-      <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold syne"
-        style={{background:'var(--a)', color:'#0a0a0a'}}>{n}</div>
-      <div className="flex-1">
-        <p className={`font-bold syne text-sm ${tc}`}>{title}</p>
-        <div className={`text-sm mt-1 ${sub}`}>{children}</div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="modal-bg" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className={`modal-box ${bg} p-8 border ${dark?'border-white/8':'border-black/8'}`}>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className={`syne text-2xl font-extrabold ${tc}`}>Deploy Your Portfolio</h2>
-          <button className={`text-2xl bg-transparent border-0 cursor-pointer ${tc}`} onClick={onClose}>✕</button>
-        </div>
-
-        {/* Tabs */}
-        <div className={`flex rounded-xl p-1 mb-8 ${dark?'bg-white/5':'bg-black/5'}`}>
-          {[['github','📦 Step 7 — Push to GitHub'],['vercel','🚀 Step 8 — Deploy on Vercel']].map(([id,label]) => (
-            <button key={id} className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-bold syne cursor-pointer border-0 transition-all ${tab===id ? 'text-[#0a0a0a]' : dark?'text-white/45 bg-transparent':'text-black/40 bg-transparent'}`}
-              style={tab===id?{background:'var(--a)'}:{}}
-              onClick={() => setTab(id)}>
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {tab === 'github' && (
-          <div>
-            <p className={`text-sm ${sub} mb-2`}>Run these commands in your project directory terminal (<code className="font-mono text-xs">your-portfolio/</code>).</p>
-
-            <Step n="1" title="Initialize Git (if not done)">
-              <p>Open your terminal inside the project folder:</p>
-              <Code>cd your-portfolio
-git init</Code>
-            </Step>
-
-            <Step n="2" title="Create a .gitignore">
-              <p>Make sure <code className="font-mono text-xs">node_modules</code> and build artifacts are excluded. Vite projects include this by default. Verify it contains:</p>
-              <Code>node_modules/
-dist/
-.env
-.env.local</Code>
-            </Step>
-
-            <Step n="3" title="Stage all files">
-              <Code>git add .</Code>
-            </Step>
-
-            <Step n="4" title="Make your first commit">
-              <Code>git commit -m "feat: initial portfolio commit"</Code>
-            </Step>
-
-            <Step n="5" title="Create a new repo on GitHub">
-              <p>Go to <a href="https://github.com/new" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>github.com/new</a> → name it <strong>portfolio</strong> → leave it <strong>Public</strong> → click <strong>Create repository</strong>. Do NOT initialize with README.</p>
-            </Step>
-
-            <Step n="6" title="Add the remote origin">
-              <Code>{`git remote add origin https://github.com/YOUR_USERNAME/portfolio.git\ngit branch -M main`}</Code>
-            </Step>
-
-            <Step n="7" title="Push to GitHub">
-              <Code>git push -u origin main</Code>
-              <p className="mt-2">✅ Your code is now live on GitHub! Future pushes: just run <code className="font-mono text-xs">git push</code>.</p>
-            </Step>
-
-            <div className={`mt-6 rounded-xl p-4 text-sm border ${dark?'border-white/7 text-white/45':'border-black/7 text-black/40'}`}>
-              💡 <strong>Pro tip:</strong> Install the <a href="https://cli.github.com/" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>GitHub CLI</a> (<code className="font-mono text-xs">gh</code>) to create repos and push without leaving the terminal: <code className="font-mono text-xs">gh repo create portfolio --public --push --source=.</code>
-            </div>
-          </div>
-        )}
-
-        {tab === 'vercel' && (
-          <div>
-            <p className={`text-sm ${sub} mb-2`}>Vercel deploys Vite/React apps in &lt;2 minutes — no config needed.</p>
-
-            <Step n="1" title="Push your code to GitHub first">
-              <p>Complete Step 7 above. Vercel deploys directly from GitHub.</p>
-            </Step>
-
-            <Step n="2" title="Create a Vercel account">
-              <p>Go to <a href="https://vercel.com/signup" target="_blank" rel="noreferrer" style={{color:'var(--a)'}}>vercel.com/signup</a> and sign up with your GitHub account. This links them automatically.</p>
-            </Step>
-
-            <Step n="3" title="Import your GitHub repo">
-              <p>In the Vercel dashboard click <strong>"Add New → Project"</strong> → find your <strong>portfolio</strong> repo → click <strong>Import</strong>.</p>
-            </Step>
-
-            <Step n="4" title="Configure the build settings">
-              <p>Vercel auto-detects Vite. Verify these defaults are set:</p>
-              <Code>{`Framework Preset: Vite
-Build Command:   npm run build
-Output Directory: dist
-Install Command: npm install`}</Code>
-            </Step>
-
-            <Step n="5" title="Add environment variables (if any)">
-              <p>If you have a <code className="font-mono text-xs">.env</code> file with API keys, add each variable under <strong>Environment Variables</strong> before deploying.</p>
-            </Step>
-
-            <Step n="6" title="Deploy!">
-              <p>Click <strong>"Deploy"</strong>. Vercel will build and serve your site. In ~60 seconds you'll get a live URL like:</p>
-              <Code>https://portfolio-alex-rivera.vercel.app</Code>
-            </Step>
-
-            <Step n="7" title="Set up a custom domain (optional)">
-              <p>In your project dashboard go to <strong>Settings → Domains</strong> → add your domain (e.g. <code className="font-mono text-xs">alexrivera.dev</code>). Vercel provides free TLS automatically.</p>
-            </Step>
-
-            <Step n="8" title="Continuous deployment (automatic!)">
-              <p>Every <code className="font-mono text-xs">git push</code> to <code className="font-mono text-xs">main</code> triggers a new deployment. Pull requests get preview URLs automatically. 🎉</p>
-            </Step>
-
-            <div className={`mt-6 rounded-xl p-4 text-sm border ${dark?'border-white/7 text-white/45':'border-black/7 text-black/40'}`}>
-              💡 <strong>CLI alternative:</strong> <code className="font-mono text-xs">npm i -g vercel</code> then run <code className="font-mono text-xs">vercel</code> inside your project folder to deploy directly from the terminal — no dashboard needed.
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 /* ════════════════════════════════
    FOOTER
@@ -985,10 +838,7 @@ function Footer({ dark, openGuide }) {
             <a key={s} href={h} target="_blank" rel="noreferrer"
               className={`${tc} no-underline hover:opacity-80 transition-opacity`}>{s}</a>
           ))}
-          <button className={`${tc} no-underline hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer text-sm`}
-            onClick={openGuide}>
-            📚 Deploy Guide
-          </button>
+
         </div>
         <span className="text-xs">© {new Date().getFullYear()} Khondokar Waysal E Mustafa. Built with React + Vite.</span>
       </div>
